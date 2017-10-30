@@ -15,10 +15,10 @@
         <ListBox HorizontalAlignment="Left" Height="257" Margin="216,34,0,0" VerticalAlignment="Top" Width="170"/>
         <ListBox HorizontalAlignment="Left" Height="257" Margin="403,34,0,0" VerticalAlignment="Top" Width="170"/>
         <Button x:Name="BtnStart" Content="Start" HorizontalAlignment="Left" Margin="593,37,0,0" VerticalAlignment="Top" Width="94"/>
-        <Button x:Name="BtnPausAll" Content="Pause all" HorizontalAlignment="Left" Margin="593,74,0,0" VerticalAlignment="Top" Width="94"/>
-        <Button x:Name="BtnSpeedUp" Content="Speed up" HorizontalAlignment="Left" Margin="593,111,0,0" VerticalAlignment="Top" Width="94"/>
-        <Button x:Name="BtnSlowDown" Content="Slow down" HorizontalAlignment="Left" Margin="595,150,0,0" VerticalAlignment="Top" Width="92"/>
-        <Button x:Name="BtnClose" Content="Close" HorizontalAlignment="Left" Margin="595,183,0,0" VerticalAlignment="Top" Width="92" Height="23"/>
+        <Button x:Name="BtnPausAll" Content="Pause all" HorizontalAlignment="Left" Margin="593,74,0,0" VerticalAlignment="Top" Width="94" IsEnabled="False"/>
+        <Button x:Name="BtnSpeedUp" Content="Speed up" HorizontalAlignment="Left" Margin="593,111,0,0" VerticalAlignment="Top" Width="94" IsEnabled="False"/>
+        <Button x:Name="BtnSlowDown" Content="Slow down" HorizontalAlignment="Left" Margin="595,150,0,0" VerticalAlignment="Top" Width="92" IsEnabled="False"/>
+        <Button x:Name="BtnClose" Content="Close bar" HorizontalAlignment="Left" Margin="595,183,0,0" VerticalAlignment="Top" Width="92" Height="23" IsEnabled="False"/>
         <Label x:Name="LblBartender" Content="Bartender" HorizontalAlignment="Left" Margin="45,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="LblWaiter" Content="Waiter" HorizontalAlignment="Left" Margin="216,8,0,0" VerticalAlignment="Top"/>
         <Label x:Name="LblPatron" Content="Patron" HorizontalAlignment="Left" Margin="403,8,0,0" VerticalAlignment="Top"/>
@@ -35,10 +35,10 @@
             </Label.RenderTransform>
         </Label>
         <Label x:Name="LblClosingCount" Content="Time until closing: " HorizontalAlignment="Left" Margin="718,150,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Button x:Name="BtnPauseBartender" Content="Pause " HorizontalAlignment="Left" Margin="32,296,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="BtnPauseWaiter" Content="Pause" HorizontalAlignment="Left" Margin="216,296,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="BtnPausePatron" Content="Pause" HorizontalAlignment="Left" Margin="403,296,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="BtnPauseBouncer" Content="Pause Bouncer" HorizontalAlignment="Left" Margin="595,226,0,0" VerticalAlignment="Top" Width="92" Height="27"/>
+        <Button x:Name="BtnPauseBartender" Content="Pause " HorizontalAlignment="Left" Margin="32,296,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
+        <Button x:Name="BtnPauseWaiter" Content="Pause" HorizontalAlignment="Left" Margin="216,296,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
+        <Button x:Name="BtnPausePatron" Content="Pause" HorizontalAlignment="Left" Margin="403,296,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
+        <Button x:Name="BtnPauseBouncer" Content="Pause Bouncer" HorizontalAlignment="Left" Margin="595,226,0,0" VerticalAlignment="Top" Width="92" Height="27" IsEnabled="False"/>
 
     </Grid>
 </Window>
