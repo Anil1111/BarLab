@@ -11,10 +11,10 @@
             <ColumnDefinition Width="727*"/>
             <ColumnDefinition Width="216*"/>
         </Grid.ColumnDefinitions>
-        <ListBox HorizontalAlignment="Left" Height="257" Margin="32,34,0,0" VerticalAlignment="Top" Width="170"/>
-        <ListBox HorizontalAlignment="Left" Height="257" Margin="216,34,0,0" VerticalAlignment="Top" Width="170"/>
-        <ListBox HorizontalAlignment="Left" Height="257" Margin="403,34,0,0" VerticalAlignment="Top" Width="170"/>
-        <Button x:Name="BtnStart" Content="Start" HorizontalAlignment="Left" Margin="593,37,0,0" VerticalAlignment="Top" Width="94"/>
+        <ListBox x:Name="ListBartender" HorizontalAlignment="Left" Height="257" Margin="32,34,0,0" VerticalAlignment="Top" Width="170"/>
+        <ListBox x:Name="ListWaiter" HorizontalAlignment="Left" Height="257" Margin="216,34,0,0" VerticalAlignment="Top" Width="170"/>
+        <ListBox x:Name="ListPatron" HorizontalAlignment="Left" Height="257" Margin="403,34,0,0" VerticalAlignment="Top" Width="170"/>
+        <Button x:Name="BtnStart" Content="Start" HorizontalAlignment="Left" Margin="593,37,0,0" VerticalAlignment="Top" Width="94" Click="BtnStart_Click"/>
         <Button x:Name="BtnPausAll" Content="Pause all" HorizontalAlignment="Left" Margin="593,74,0,0" VerticalAlignment="Top" Width="94" IsEnabled="False"/>
         <Button x:Name="BtnSpeedUp" Content="Speed up" HorizontalAlignment="Left" Margin="593,111,0,0" VerticalAlignment="Top" Width="94" IsEnabled="False"/>
         <Button x:Name="BtnSlowDown" Content="Slow down" HorizontalAlignment="Left" Margin="595,150,0,0" VerticalAlignment="Top" Width="92" IsEnabled="False"/>

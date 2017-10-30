@@ -20,9 +20,16 @@ namespace Lab6
     /// </summary>
     public partial class MainWindow : Window
     {
+        Bouncer bouncer = new Bouncer();
+
         public MainWindow()
         {
             InitializeComponent();
+
+        }
+
+        private void BtnStart_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
