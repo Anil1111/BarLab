@@ -14,5 +14,10 @@ namespace Lab6
         {
             this.Name = name;
         }
+
+        public string EnteredBar()
+        {
+            return Name + "ekjfe";
+        }
     }
 }
