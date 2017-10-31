@@ -20,13 +20,15 @@ namespace Lab6
         public void Work(Action<string> Callback)
         {
             this.Callback = Callback;
-            Random rnd = new Random();
 
             Random random = new Random();
+
             while (RemainingPatrons >= 0)
             {
-                Thread.Sleep(random.Next(3000, 10000));
-                Callback(PatronNameList[rnd.Next(PatronNameList.Count)]);
+                Thread.Sleep(random.Next(1000, 5000));
+                // Här skapar vi patron-object som sedan skickan till queuen i main med hjälp av delegates. Vi behöver alltså inte göra nått med 
+                // understående rad med kod eftersom den bara skriver namnen till listboxen. 
+                Callback(PatronNameList[random.Next(PatronNameList.Count)]);
                 RemainingPatrons--;             
             }
         }
