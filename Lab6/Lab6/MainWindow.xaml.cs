@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 namespace Lab6
 {
     /// <summary>
@@ -20,16 +20,25 @@ namespace Lab6
     /// </summary>
     public partial class MainWindow : Window
     {
-        Bouncer bouncer = new Bouncer();
-
         public MainWindow()
         {
             InitializeComponent();
-
         }
-
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
+            Task.Run(() =>
+            {
+                Bouncer b = new Bouncer();
+                b.Work(AddList);
+            });
+        }
+        //Delegate funktion för Bouncer
+        private void AddList(string info)
+        {
+            Dispatcher.Invoke(() => 
+            {
+                ListPatron.Items.Insert(0, info);
+            });
         }
     }
 }
