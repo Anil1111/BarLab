@@ -32,12 +32,11 @@ namespace Lab6
         ConcurrentStack<Glass> cleanGlassStack = new ConcurrentStack<Glass>();
         ConcurrentStack<Glass> dirtyGlassStack = new ConcurrentStack<Glass>();
 
+        //Chair queue
+        ConcurrentStack<Chair> freeChairStack = new ConcurrentStack<Chair>();
+
         bool barIsOpen;
-
-        // Här deklarerar vi en ConcurrectQueue som patorns hamnar i när vi skapar dem. I main ska vi även ha funktioner som lägger till och
-        // tar bort patrons från queuen. Med hjälp av delegates kan vi meddela de andra klasserna
-        // (tex bouncer och bartender) vad som händer i queuen
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -47,16 +46,17 @@ namespace Lab6
             CancellationToken ct = cts.Token;
             BtnClose.IsEnabled = true;
             BtnStart.IsEnabled = false;
-            FillGlassStack();
+            CreateGlassStack();
+            CreateChairStack();
             barIsOpen = true;
 
             Bouncer bouncer = new Bouncer();
             Bartender bartender = new Bartender();
-            bouncer.Work(UpdatePatronList, AddPatronToQueue);
+            bouncer.Work(UpdatePatronList, AddPatronToBarQueue);
             bartender.Work(patronBarQueue, UpdateBartenderList, cleanGlassStack, barIsOpen);
         }
 
-        //Updating Listbox elements
+        //Updating Listbox elements for Patron ListBox
         private void UpdatePatronList(string info)
         {
             Dispatcher.Invoke(() => 
@@ -65,6 +65,7 @@ namespace Lab6
             });
         }
 
+        //Updating Listbox elements for Bartender ListBox
         private void UpdateBartenderList(string info)
         {
             Dispatcher.Invoke(() =>
@@ -73,16 +74,15 @@ namespace Lab6
             });
         }
 
-        //Function that adds Patron to ConcurrentQueue
-        private void AddPatronToQueue(Patron p)
+        //Function that adds Patron to Bar
+        private void AddPatronToBarQueue(Patron p)
         {
             patronBarQueue.Enqueue(p);
         }
-
-        //Function that removes Patron from ConcurrentQueue
-        private void RemovePatronFromQueue(Patron p)
+        
+        private void AddPatronToChairQueue(Patron p)
         {
-            patronBarQueue.TryDequeue(out p);
+            patronChairQueue.Enqueue(p);
         }
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
@@ -93,12 +93,22 @@ namespace Lab6
         }
 
         //Function that creates glass objects and adds to ConcurrentStack
-        private void FillGlassStack()
+        private void CreateGlassStack()
         {
             for (int i = 0; i < 8; i++)
             {
                 cleanGlassStack.Push(new Glass());
                 Console.WriteLine("Added glass object to stack.");
+            }
+        }
+
+        //Function that creates chair objects and add to ConcurrentStack
+        private void CreateChairStack()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                freeChairStack.Push(new Chair());
+                Console.WriteLine("Added chair object to stack");
             }
         }
     }

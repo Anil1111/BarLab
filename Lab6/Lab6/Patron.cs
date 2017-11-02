@@ -8,17 +8,24 @@ namespace Lab6
 {
    public class Patron
     {
-        public string Name { get; set; }
-        public bool HasBeer { get; set; }
+        //EVENT LÖSNING:
+            //Vi behöver ett event som Patron tittar på:
+            //När Patron har fått sin öl och dequeueas från barQueuen så ska Patron.SitDown() triggas. 
 
+        public string Name { get; set; }
+       
+        private Action<string> Callback;
+        private Action<Chair> FreeChairStack;
+        private Action<Patron> PatronChairQueue;
+        
         public Patron(string name)
         {
             this.Name = name;
         }
-
-        public string EnteredBar()
+        
+        public void SitDown()
         {
-            return Name + "ekjfe";
+
         }
     }
 }
