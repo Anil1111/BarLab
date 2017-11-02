@@ -23,8 +23,15 @@ namespace Lab6
     public partial class MainWindow : Window
     {
         private CancellationTokenSource cts = new CancellationTokenSource();
-        ConcurrentQueue<Patron> patronQueue = new ConcurrentQueue<Patron>();
-        ConcurrentStack<Glass> glassStack = new ConcurrentStack<Glass>();
+        
+        //Patron queues
+        ConcurrentQueue<Patron> patronBarQueue = new ConcurrentQueue<Patron>();
+        ConcurrentQueue<Patron> patronChairQueue = new ConcurrentQueue<Patron>();
+
+        //Glass queues
+        ConcurrentStack<Glass> cleanGlassStack = new ConcurrentStack<Glass>();
+        ConcurrentStack<Glass> dirtyGlassStack = new ConcurrentStack<Glass>();
+
         bool barIsOpen;
 
         // Här deklarerar vi en ConcurrectQueue som patorns hamnar i när vi skapar dem. I main ska vi även ha funktioner som lägger till och
@@ -45,8 +52,8 @@ namespace Lab6
 
             Bouncer bouncer = new Bouncer();
             Bartender bartender = new Bartender();
-            bouncer .Work(UpdatePatronList, AddPatronToQueue);
-            bartender.Work(patronQueue, UpdateBartenderList, glassStack, barIsOpen);
+            bouncer.Work(UpdatePatronList, AddPatronToQueue);
+            bartender.Work(patronBarQueue, UpdateBartenderList, cleanGlassStack, barIsOpen);
         }
 
         //Updating Listbox elements
@@ -69,13 +76,13 @@ namespace Lab6
         //Function that adds Patron to ConcurrentQueue
         private void AddPatronToQueue(Patron p)
         {
-            patronQueue.Enqueue(p);
+            patronBarQueue.Enqueue(p);
         }
 
         //Function that removes Patron from ConcurrentQueue
         private void RemovePatronFromQueue(Patron p)
         {
-            patronQueue.TryDequeue(out p);
+            patronBarQueue.TryDequeue(out p);
         }
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
@@ -90,7 +97,7 @@ namespace Lab6
         {
             for (int i = 0; i < 8; i++)
             {
-                glassStack.Push(new Glass());
+                cleanGlassStack.Push(new Glass());
                 Console.WriteLine("Added glass object to stack.");
             }
         }

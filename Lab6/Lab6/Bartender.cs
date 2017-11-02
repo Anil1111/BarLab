@@ -14,42 +14,39 @@ namespace Lab6
         private ConcurrentQueue<Patron> PatronQueue;
         private ConcurrentStack<Glass> GlassStack;
 
-        public void Work(ConcurrentQueue<Patron> patronQueue, Action<string> callback, ConcurrentStack<Glass> glassStack, bool isOpen)
+        public void Work(ConcurrentQueue<Patron> patronBarQueue, Action<string> callback, ConcurrentStack<Glass> glassStack, bool IsOpen)
         {
             this.Callback = callback;
-            this.PatronQueue = patronQueue;
+            this.PatronQueue = patronBarQueue;
             this.GlassStack = glassStack;
 
-            Task.Run(() => 
+            Task.Run(() =>
             {
-                Thread.Sleep(1000);
-                if (!patronQueue.IsEmpty)
+                while (IsOpen) //Kommer att kolla om baren är öppen
                 {
-                    //Gå till hyllan och hämta ett glas -> 3 sek
-                    if (GetGlass(glassStack))
+                    Thread.Sleep(1000);
+                    if (!patronBarQueue.IsEmpty)
                     {
-                        //Häll upp ett glas till kunden -> 3 sek
-                        callback($"Bartender is pouring up a beer for {((Patron)patronQueue.First()).Name}");
+                        if (!glassStack.IsEmpty)
+                        {
+                            callback($"The Bartender is fetching {((Patron)patronBarQueue.First()).Name} a glass");
+                            Thread.Sleep(3000);
+                            GlassStack.TryPop(out Glass g);
+                            callback($"The Bartender is pouring {((Patron)patronBarQueue.First()).Name} a beer.");
+                            Thread.Sleep(3000);
+                            patronBarQueue.TryDequeue(out Patron p);
+                        }
+                        else
+                        {
+                            callback("The Bartender is waiting for Glasses.");
+                        }
+                    }
+                    else
+                    {
+                        callback("The Bartender is waiting for Patrons.");
                     }
                 }
-                else if (patronQueue.IsEmpty)
-                {
-                    callback("The Bartender is waiting for Patrons.");
-                }
             });
-        }
-
-        public bool GetGlass(ConcurrentStack<Glass> glassStack)
-        {
-            bool isSuccess = glassStack.TryPop(out Glass jonas);
-            if (isSuccess)
-            {
-                return isSuccess;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }
