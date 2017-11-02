@@ -21,7 +21,6 @@ namespace Lab6
         public void Work(Action<string> Callback, Action<Patron> patronCallback)
         {
             Task.Run(() => {
-                DateTime timer = DateTime.Now;
                 this.PatronCallback = patronCallback;
                 this.Callback = Callback;
 
@@ -29,7 +28,7 @@ namespace Lab6
                 {
                     Thread.Sleep(random.Next(1000, 5000));
                     string patronName = PatronNameList[random.Next(PatronNameList.Count)];
-                    Callback(patronName);
+                    Callback($"{patronName} has entered the bar.");
                     patronCallback(new Patron(patronName));
                     maxPatrons--;
                 }

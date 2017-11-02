@@ -9,6 +9,7 @@ namespace Lab6
    public class Patron
     {
         public string Name { get; set; }
+        public bool HasBeer { get; set; }
 
         public Patron(string name)
         {
