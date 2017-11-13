@@ -22,7 +22,7 @@ namespace Lab6
 
             Task.Run(() =>
             {
-                while(isOpen) // Kolla om baren är öppen
+                while(/*bool*/)
                 {
                     if (!dirtyGlassStack.IsEmpty)
                     {
@@ -32,7 +32,7 @@ namespace Lab6
                         callback("The waiter is washing a glass.");
                         Thread.Sleep(15000);
                         callback("The waiter places the clean glass back on the shelf.");
-                        cleanGlassStack.Push(new Glass()); // Går det att pusha utan att göra ett nytt glass-object?
+                        cleanGlassStack.Push(new Glass());
                     }
                 }
 

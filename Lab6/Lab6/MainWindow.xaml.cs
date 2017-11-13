@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 
 namespace Lab6
 {
@@ -48,13 +49,13 @@ namespace Lab6
             BtnStart.IsEnabled = false;
             CreateGlassStack();
             CreateChairStack();
-            barIsOpen = true;
 
             Bouncer bouncer = new Bouncer();
             Bartender bartender = new Bartender();
             Waiter waiter = new Waiter();
-            bouncer.Work(UpdatePatronList, AddPatronToBarQueue);
-            bartender.Work(patronBarQueue, UpdateBartenderList, cleanGlassStack, dirtyGlassStack, barIsOpen);
+            bouncer.Work(UpdatePatronList, AddPatronToBarQueue, barIsOpen);
+            barIsOpen = true;
+            bartender.Work(patronBarQueue, patronChairQueue, UpdateBartenderList, cleanGlassStack, dirtyGlassStack);
             waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, barIsOpen);
 
         }
