@@ -12,7 +12,7 @@ namespace Lab6
         private Action<string> Callback;
         private Action<Patron> PatronCallback;
         Random random = new Random();
-        int maxPatrons = 10;
+        int maxPatrons = 100;
 
         List<string> PatronNameList = new List<string>()
             { "Jonas", "Klas", "Göran", "Getrud", "Daniel", "Petra", "Tor", "Styr-Björn", "Greta", "Livingston", "Margret" };

@@ -52,8 +52,11 @@ namespace Lab6
 
             Bouncer bouncer = new Bouncer();
             Bartender bartender = new Bartender();
+            Waiter waiter = new Waiter();
             bouncer.Work(UpdatePatronList, AddPatronToBarQueue);
-            bartender.Work(patronBarQueue, UpdateBartenderList, cleanGlassStack, barIsOpen);
+            bartender.Work(patronBarQueue, UpdateBartenderList, cleanGlassStack, dirtyGlassStack, barIsOpen);
+            waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, barIsOpen);
+
         }
 
         //Updating Listbox elements for Patron ListBox
@@ -71,6 +74,15 @@ namespace Lab6
             Dispatcher.Invoke(() =>
             {
                 ListBartender.Items.Insert(0, info);
+            });
+        }
+
+        //Updating Listbox elements for Waiter ListBox
+        private void UpdateWaiterList(string info)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                ListWaiter.Items.Insert(0, info);
             });
         }
 
