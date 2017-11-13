@@ -43,6 +43,10 @@ namespace Lab6
                             cleanGlassStack.TryPop(out Glass g);
                             callback($"The Bartender is pouring {((Patron)patronBarQueue.First()).Name} a beer.");
                             Thread.Sleep(3000);
+
+                            //If Patron has a beer:
+                            //Patron looks for chairs and triggers Sitdown(). 
+                            //Sitdown() dequeues Patrons from its queue instead of the bartender queue
                             patronBarQueue.TryDequeue(out Patron p);
                         }
                         else
