@@ -13,16 +13,18 @@ namespace Lab6
         private Action<string> Callback;
         private ConcurrentStack<Glass> DirtyGlassStack;
         private ConcurrentStack<Glass> CleanGlassStack;
+        public bool IsWorking { get; set; }
 
-        public void Work(Action<string> callback, ConcurrentStack<Glass> dirtyGlassStack, ConcurrentStack<Glass> cleanGlassStack, bool isOpen)
+        public void Work(Action<string> callback, ConcurrentStack<Glass> dirtyGlassStack, ConcurrentStack<Glass> cleanGlassStack, bool isWorking)
         {
             this.Callback = callback;
             this.DirtyGlassStack = dirtyGlassStack;
             this.CleanGlassStack = cleanGlassStack;
+            this.IsWorking = isWorking;
 
             Task.Run(() =>
             {
-                while(/*bool*/)
+                while(IsWorking)
                 {
                     if (!dirtyGlassStack.IsEmpty)
                     {
@@ -35,7 +37,6 @@ namespace Lab6
                         cleanGlassStack.Push(new Glass());
                     }
                 }
-
             });
         }
     }

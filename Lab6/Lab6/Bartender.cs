@@ -15,10 +15,10 @@ namespace Lab6
         private ConcurrentQueue<Patron> PatronChairQueue;
         private ConcurrentStack<Glass> DirtyGlassStack;
         private ConcurrentStack<Glass> CleanGlassStack;
-        bool working = true;
+        public bool BarIsOpen { get; set; }
 
         public void Work(ConcurrentQueue<Patron> patronBarQueue, ConcurrentQueue<Patron> patronChairQueue, Action<string> callback, 
-            ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack)
+            ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack, bool bartenderIsWorking)
 
         {
             this.Callback = callback;
@@ -26,11 +26,13 @@ namespace Lab6
             this.DirtyGlassStack = dirtyGlassStack;
             this.CleanGlassStack = cleanGlassStack;
             this.PatronChairQueue = patronChairQueue;
+            this.BarIsOpen = bartenderIsWorking;
 
             Task.Run(() =>
             {
-                while (/*en bool*/) // Kommer att jobba medan det finns kunder kvar
+                while (BarIsOpen || !PatronBarQueue.IsEmpty) // Kommer att jobba medan det finns kunder kvar
                 {
+                    Console.WriteLine("Bartendern jobbar");
                     Thread.Sleep(1000);
                     if (!patronBarQueue.IsEmpty)
                     {
@@ -42,7 +44,6 @@ namespace Lab6
                             callback($"The Bartender is pouring {((Patron)patronBarQueue.First()).Name} a beer.");
                             Thread.Sleep(3000);
                             patronBarQueue.TryDequeue(out Patron p);
-
                         }
                         else
                         {
@@ -53,15 +54,14 @@ namespace Lab6
                     {
                         callback("The Bartender is waiting for Patrons.");
                     }
-
-                    // kanske ha för att få bartendern att sluta jobba
-                    if(patronBarQueue.IsEmpty && patronChairQueue.IsEmpty)
-                    {
-                        working = false;
-                        callback("The Bartender went home.");
-                    }
                 }
+                Console.WriteLine("bartender jobbar inte");
             });
+        }
+        
+        public void StopServing()
+        {
+            BarIsOpen = false;
         }
     }
 }

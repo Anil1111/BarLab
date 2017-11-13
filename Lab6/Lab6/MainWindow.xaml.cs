@@ -35,12 +35,15 @@ namespace Lab6
 
         //Chair queue
         ConcurrentStack<Chair> freeChairStack = new ConcurrentStack<Chair>();
-
-        bool barIsOpen;
         
+        Bouncer bouncer = new Bouncer();
+        Bartender bartender = new Bartender();
+        Waiter waiter = new Waiter();
+
         public MainWindow()
         {
             InitializeComponent();
+            bouncer.IsClosing += bartender.StopServing;
         }
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
@@ -50,14 +53,9 @@ namespace Lab6
             CreateGlassStack();
             CreateChairStack();
 
-            Bouncer bouncer = new Bouncer();
-            Bartender bartender = new Bartender();
-            Waiter waiter = new Waiter();
-            bouncer.Work(UpdatePatronList, AddPatronToBarQueue, barIsOpen);
-            barIsOpen = true;
-            bartender.Work(patronBarQueue, patronChairQueue, UpdateBartenderList, cleanGlassStack, dirtyGlassStack);
-            waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, barIsOpen);
-
+            bouncer.Work(UpdatePatronList, AddPatronToBarQueue);
+            bartender.Work(patronBarQueue, patronChairQueue, UpdateBartenderList, cleanGlassStack, dirtyGlassStack, bouncer.IsWorking);
+            waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking);
         }
 
         //Updating Listbox elements for Patron ListBox
