@@ -32,7 +32,7 @@ namespace Lab6
                 this.Callback = Callback;
 
                 stopwatch.Start();
-                while (stopwatch.Elapsed < TimeSpan.FromSeconds(6))
+                while (stopwatch.Elapsed < TimeSpan.FromSeconds(10))
                 {
                     Thread.Sleep(random.Next(1000, 5000));
                     string patronName = PatronNameList[random.Next(PatronNameList.Count)];

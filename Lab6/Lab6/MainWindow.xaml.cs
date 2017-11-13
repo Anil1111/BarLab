@@ -44,6 +44,7 @@ namespace Lab6
         {
             InitializeComponent();
             bouncer.IsClosing += bartender.StopServing;
+            bouncer.IsClosing += waiter.StopServing;
         }
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
@@ -54,8 +55,9 @@ namespace Lab6
             CreateChairStack();
 
             bouncer.Work(UpdatePatronList, AddPatronToBarQueue);
-            bartender.Work(patronBarQueue, patronChairQueue, UpdateBartenderList, cleanGlassStack, dirtyGlassStack, bouncer.IsWorking);
-            waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking);
+            bartender.Work(patronBarQueue, patronChairQueue, UpdateBartenderList, cleanGlassStack, 
+                dirtyGlassStack, bouncer.IsWorking);
+            waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, patronChairQueue);
         }
 
         //Updating Listbox elements for Patron ListBox
@@ -63,7 +65,8 @@ namespace Lab6
         {
             Dispatcher.Invoke(() => 
             {
-                ListPatron.Items.Insert(0, info);      
+                LblPatronCount.Content = "Patrons in bar: " + patronBarQueue.Count();
+                ListPatron.Items.Insert(0, info);
             });
         }
 
