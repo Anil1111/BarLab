@@ -11,26 +11,24 @@ namespace Lab6
     public class Bartender
     {
         private Action<string> Callback;
-        private ConcurrentQueue<Patron> PatronBarQueue;
-        private ConcurrentQueue<Patron> PatronChairQueue;
+        private ConcurrentQueue<Patron> PatronQueue;
         private ConcurrentStack<Glass> DirtyGlassStack;
         private ConcurrentStack<Glass> CleanGlassStack;
         public bool BarIsOpen { get; set; }
 
-        public void Work(ConcurrentQueue<Patron> patronBarQueue, ConcurrentQueue<Patron> patronChairQueue, Action<string> callback, 
+        public void Work(ConcurrentQueue<Patron> patronBarQueue, Action<string> callback, 
             ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack, bool bartenderIsWorking)
 
         {
             this.Callback = callback;
-            this.PatronBarQueue = patronBarQueue;
+            this.PatronQueue = patronBarQueue;
             this.DirtyGlassStack = dirtyGlassStack;
             this.CleanGlassStack = cleanGlassStack;
-            this.PatronChairQueue = patronChairQueue;
             this.BarIsOpen = bartenderIsWorking;
 
             Task.Run(() =>
             {
-                while (BarIsOpen || !PatronBarQueue.IsEmpty) // Kommer att jobba medan det finns kunder kvar
+                while (BarIsOpen || !PatronQueue.IsEmpty) // Kommer att jobba medan det finns kunder kvar
                 {
                     Console.WriteLine("Bartendern jobbar");
                     Thread.Sleep(1000);

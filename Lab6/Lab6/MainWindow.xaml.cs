@@ -25,9 +25,8 @@ namespace Lab6
     {
         private CancellationTokenSource cts = new CancellationTokenSource();
         
-        //Patron queues
-        ConcurrentQueue<Patron> patronBarQueue = new ConcurrentQueue<Patron>();
-        ConcurrentQueue<Patron> patronChairQueue = new ConcurrentQueue<Patron>();
+        //Patron queue
+        ConcurrentQueue<Patron> patronQueue = new ConcurrentQueue<Patron>();
 
         //Glass queues
         ConcurrentStack<Glass> cleanGlassStack = new ConcurrentStack<Glass>();
@@ -54,10 +53,10 @@ namespace Lab6
             CreateGlassStack();
             CreateChairStack();
 
-            bouncer.Work(UpdatePatronList, AddPatronToBarQueue);
-            bartender.Work(patronBarQueue, patronChairQueue, UpdateBartenderList, cleanGlassStack, 
+            bouncer.Work(UpdatePatronList, AddPatronToQueue);
+            bartender.Work(patronQueue, UpdateBartenderList, cleanGlassStack, 
                 dirtyGlassStack, bouncer.IsWorking);
-            waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, patronChairQueue);
+            waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, patronQueue);
         }
 
         //Updating Listbox elements for Patron ListBox
@@ -65,7 +64,7 @@ namespace Lab6
         {
             Dispatcher.Invoke(() => 
             {
-                LblPatronCount.Content = "Patrons in bar: " + patronBarQueue.Count();
+                LblPatronCount.Content = "Patrons in bar: " + patronQueue.Count();
                 ListPatron.Items.Insert(0, info);
             });
         }
@@ -89,14 +88,9 @@ namespace Lab6
         }
 
         //Function that adds Patron to Bar
-        private void AddPatronToBarQueue(Patron p)
+        private void AddPatronToQueue(Patron p)
         {
-            patronBarQueue.Enqueue(p);
-        }
-        
-        private void AddPatronToChairQueue(Patron p)
-        {
-            patronChairQueue.Enqueue(p);
+            patronQueue.Enqueue(p);
         }
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)

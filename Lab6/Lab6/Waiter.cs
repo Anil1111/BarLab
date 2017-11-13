@@ -13,21 +13,21 @@ namespace Lab6
         private Action<string> Callback;
         private ConcurrentStack<Glass> DirtyGlassStack;
         private ConcurrentStack<Glass> CleanGlassStack;
-        private ConcurrentQueue<Patron> PatronChairQueue;
+        private ConcurrentQueue<Patron> PatronQueue;
         public bool BarIsOpen { get; set; }
 
         public void Work(Action<string> callback, ConcurrentStack<Glass> dirtyGlassStack, 
-            ConcurrentStack<Glass> cleanGlassStack, bool bouncerIsWorking, ConcurrentQueue<Patron> patronChairQueue)
+            ConcurrentStack<Glass> cleanGlassStack, bool bouncerIsWorking, ConcurrentQueue<Patron> patronQueue)
         {
             this.Callback = callback;
             this.DirtyGlassStack = dirtyGlassStack;
             this.CleanGlassStack = cleanGlassStack;
             this.BarIsOpen = bouncerIsWorking;
-            this.PatronChairQueue = patronChairQueue;
+            this.PatronQueue = patronQueue;
 
             Task.Run(() =>
             {
-                while(BarIsOpen || !PatronChairQueue.IsEmpty || !dirtyGlassStack.IsEmpty)
+                while(BarIsOpen || !PatronQueue.IsEmpty || !dirtyGlassStack.IsEmpty)
                 {
                     if (!dirtyGlassStack.IsEmpty)
                     {

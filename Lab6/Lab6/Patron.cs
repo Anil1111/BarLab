@@ -25,18 +25,18 @@ namespace Lab6
 
         private Action<string> Callback;
         private Action<Chair> FreeChairStack;
-        private ConcurrentQueue<Patron> PatronChairQueue;
+        private ConcurrentQueue<Patron> PatronQueue;
         private ConcurrentStack<Glass> DirtyGlassStack;
         public string BeerDrinkingPatron { get; set; }
 
         //Function that tells the Patron to "sit down" and drink the beer before disappearing from the queue
         public void SitDown(Action<string> callback, ConcurrentStack<Glass> dirtyGlassStack, Action<Chair> freeChairStack,
-            ConcurrentQueue<Patron> patronChairQueue)
+            ConcurrentQueue<Patron> patronQueue)
         {
             this.Callback = callback;
             this.DirtyGlassStack = dirtyGlassStack;
             this.FreeChairStack = freeChairStack;
-            this.PatronChairQueue = patronChairQueue;
+            this.PatronQueue = patronQueue;
 
             Task.Run(() =>
             {
@@ -48,7 +48,7 @@ namespace Lab6
                 Thread.Sleep(20000); //random mellan 10-20 sek 
                 callback($"{BeerDrinkingPatron} finishes the beer and leaves the bar.");
                 dirtyGlassStack.Push(new Glass()); // händer när patronen lämnar baren
-                patronChairQueue.TryDequeue(out Patron p);
+                patronQueue.TryDequeue(out Patron p);
             });
         }
     }
