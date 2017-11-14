@@ -38,9 +38,9 @@ namespace Lab6
                     {
                         if (!cleanGlassStack.IsEmpty)
                         {
+                            cleanGlassStack.TryPop(out Glass g);
                             Callback($"The Bartender is fetching {((Patron)PatronQueue.First()).Name} a glass");
                             Thread.Sleep(3000);
-                            cleanGlassStack.TryPop(out Glass g);
                             Callback($"The Bartender is pouring {((Patron)PatronQueue.First()).Name} a beer.");
                             Thread.Sleep(3000);
 
@@ -53,6 +53,7 @@ namespace Lab6
                         else
                         {
                             Callback("The Bartender is waiting for Glasses.");
+                            Thread.Sleep(3000);
                         }
                     }
                     else

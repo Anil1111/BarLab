@@ -65,7 +65,7 @@ namespace Lab6
             Dispatcher.Invoke(() => 
             {
                 ListPatron.Items.Insert(0, info);
-                LblPatronCount.Content = "Patrons in bar: " + ((int)patronQueue.Count()+1);
+                LblPatronCount.Content = $"Patrons in bar: {patronQueue.Count()}";
                 LblChairCount.Content = $"Vacant chairs: {freeChairStack.Count()} (9 total)";
             });
         }
@@ -116,7 +116,7 @@ namespace Lab6
         //Function that creates chair objects and add to ConcurrentStack
         private void CreateChairStack()
         {
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 9; i++)
             {
                 freeChairStack.Push(new Chair());
                 Console.WriteLine("Added chair object to stack");

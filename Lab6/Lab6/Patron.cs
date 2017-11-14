@@ -47,9 +47,9 @@ namespace Lab6
                 callback($"{BeerDrinkingPatron} sits down.");
                 FreeChairStack.TryPop(out Chair c);
                 Thread.Sleep(random.Next(10000, 20000)); //random mellan 10-20 sek 
-                callback($"{BeerDrinkingPatron} finishes the beer and leaves the bar.");
                 FreeChairStack.Push(new Chair());
-                dirtyGlassStack.Push(new Glass()); // händer när patronen lämnar baren
+                dirtyGlassStack.Push(new Glass());
+                callback($"{BeerDrinkingPatron} finishes the beer and leaves the bar.");
             });
         }
     }
