@@ -33,16 +33,18 @@ namespace Lab6
                 while (BarIsOpen || !PatronQueue.IsEmpty) // Kommer att jobba medan det finns kunder kvar
                 {
                     Console.WriteLine("Bartendern jobbar");
-                    Thread.Sleep(1000);
+                    //Thread.Sleep(1000);
                     if (!PatronQueue.IsEmpty)
                     {
                         if (!cleanGlassStack.IsEmpty)
                         {
                             cleanGlassStack.TryPop(out Glass g);
                             Thread.Sleep(1000);
-                            Callback($"The Bartender is fetching {((Patron)PatronQueue.FirstOrDefault()).Name} a glass.");
+
+                            //Patron Dequeue fuckar upp. Testa
+                            Callback($"The Bartender is fetching {PatronQueue.First().Name} a glass.");
                             Thread.Sleep(3000);
-                            Callback($"The Bartender is pouring {((Patron)PatronQueue.FirstOrDefault()).Name} a beer.");
+                            Callback($"The Bartender is pouring {PatronQueue.First().Name} a beer.");
                             Thread.Sleep(3000);
                             PatronQueue.FirstOrDefault().SitDown(PatronListCallback, DirtyGlassStack, FreeChairStack, PatronQueue);
                         }

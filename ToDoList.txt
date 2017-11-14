@@ -1,2 +1,44 @@
+Standardvärden:
+		Glas 8 st
+		Stolar 9st 
+		Bouncer: 
+			120sek öppet
+			slumpvist insläpp mellan 3-10 sek. 
+		Waitress
+			10 sek plocka
+			15 sek diska
+		Bartender:
+			3sek hämta glas
+			3sek hälla upp öl
+		Patron:
+			4 sek att gå till bord. Mellan 10-20 sek att dricka
+
 To Do:
 
+Stopwatch
+Tester:
+	Test 1:
+	Funkar galant. 
+
+	Test 2:
+	-
+		
+	Test 3:
+	Ändrade max värden för antalet objekt som skapats upp för Glasen och stolarna. 
+
+	Test 4:
+	-
+
+	Test 5: 
+	Gick bra. Ändrade värden på waitern utan några problem. 
+
+	Test 6:
+	-
+
+	Test 7:
+	Funkar bra. 
+	Duplicerade hela add Patron funktionen och använde 2 callbacks till Main istället för 1. 
+
+
+	Test 8:
+	-
