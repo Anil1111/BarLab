@@ -5,40 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lab6"
         mc:Ignorable="d"
-        Title="MainWindow" Height="387.234" Width="1000.655">
+        Title="MainWindow" Height="500.234" Width="1000.655">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="727*"/>
             <ColumnDefinition Width="216*"/>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="ListBartender" HorizontalAlignment="Left" Height="257" Margin="9,34,0,0" VerticalAlignment="Top" Width="235"/>
-        <ListBox x:Name="ListWaiter" HorizontalAlignment="Left" Height="257" Margin="251,34,0,0" VerticalAlignment="Top" Width="235"/>
-        <ListBox x:Name="ListPatron" HorizontalAlignment="Left" Height="257" Margin="494,34,0,0" VerticalAlignment="Top" Width="235"/>
-        <Button x:Name="BtnStart" Content="Open bar" HorizontalAlignment="Left" Margin="742,37,0,0" VerticalAlignment="Top" Width="94" Height="27" Click="BtnStart_Click" Grid.ColumnSpan="2"/>
-        <Button x:Name="BtnPausAll" Content="Pause all" HorizontalAlignment="Left" Margin="742,74,0,0" VerticalAlignment="Top" Width="94" Height="27" IsEnabled="False" Grid.ColumnSpan="2"/>
-        <Button x:Name="BtnSpeedUp" Content="Speed up" HorizontalAlignment="Left" Margin="742,111,0,0" VerticalAlignment="Top" Width="94" Height="27" IsEnabled="False" Grid.ColumnSpan="2"/>
-        <Button x:Name="BtnSlowDown" Content="Slow down" HorizontalAlignment="Left" Margin="744,150,0,0" VerticalAlignment="Top" Width="92" Height="27" IsEnabled="False" Grid.ColumnSpan="2"/>
-        <Button x:Name="BtnClose" Content="Close bar" HorizontalAlignment="Left" Margin="744,187,0,0" VerticalAlignment="Top" Width="92" Height="27" IsEnabled="False" Click="BtnClose_Click" Grid.ColumnSpan="2"/>
+        <ListBox x:Name="ListBartender" HorizontalAlignment="Left" Height="257" Margin="10,34,0,0" VerticalAlignment="Top" Width="300"/>
+        <ListBox x:Name="ListWaiter" HorizontalAlignment="Left" Height="257" Margin="329,34,0,0" VerticalAlignment="Top" Width="300"/>
+        <ListBox x:Name="ListPatron" HorizontalAlignment="Left" Height="257" Margin="651,34,0,0" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2"/>
+        <Button x:Name="BtnStart" Content="Open bar" HorizontalAlignment="Left" Margin="67,339,0,0" VerticalAlignment="Top" Width="94" Height="27" Click="BtnStart_Click"/>
+        <Button x:Name="BtnPausAll" Content="Pause all" HorizontalAlignment="Left" Margin="67,381,0,0" VerticalAlignment="Top" Width="94" Height="27" IsEnabled="False"/>
+        <Button x:Name="BtnClose" Content="Close bar" HorizontalAlignment="Left" Margin="69,420,0,0" VerticalAlignment="Top" Width="92" Height="27" IsEnabled="False" Click="BtnClose_Click"/>
         <Label x:Name="LblBartender" Content="Bartender" HorizontalAlignment="Left" Margin="9,6,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="LblWaiter" Content="Waiter" HorizontalAlignment="Left" Margin="244,6,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="LblPatron" Content="Patron" HorizontalAlignment="Left" Margin="494,3,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="LblPatronCount" Content="Patrons  in bar:" HorizontalAlignment="Left" Margin="76,34,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label x:Name="LblChairCount" Content="Vacant chairs: 9 (9 total)" HorizontalAlignment="Left" Margin="76,74,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label x:Name="LblGlassCount" Content="Glasses on shelf: 8 (8 total)" HorizontalAlignment="Left" Margin="73,115,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.724"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
-        <Label x:Name="LblClosingCount" Content="Time until closing: " HorizontalAlignment="Left" Margin="76,150,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-        <Button x:Name="BtnPauseBartender" Content="Pause " HorizontalAlignment="Left" Margin="10,296,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False"/>
-        <Button x:Name="BtnPauseWaiter" Content="Pause" HorizontalAlignment="Left" Margin="251,296,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False"/>
-        <Button x:Name="BtnPausePatron" Content="Pause" HorizontalAlignment="Left" Margin="494,296,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False"/>
-        <Button x:Name="BtnPauseBouncer" Content="Pause Bouncer" HorizontalAlignment="Left" Margin="744,226,0,0" VerticalAlignment="Top" Width="92" Height="27" IsEnabled="False" Grid.ColumnSpan="2"/>
+        <Label x:Name="LblWaiter" Content="Waiter" HorizontalAlignment="Left" Margin="329,6,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="LblPatron" Content="Patron" HorizontalAlignment="Left" Margin="651,3,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label x:Name="LblPatronCount" Content="Patrons  in bar:" HorizontalAlignment="Left" Margin="201,339,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LblChairCount" Content="Vacant chairs: 9 (9 total)" HorizontalAlignment="Left" Margin="201,370,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LblGlassCount" Content="Glasses on shelf: 8 (8 total)" HorizontalAlignment="Left" Margin="201,401,0,0" VerticalAlignment="Top" />
+        <Button x:Name="BtnPauseBartender" Content="Pause " HorizontalAlignment="Left" Margin="23,301,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False"/>
+        <Button x:Name="BtnPauseWaiter" Content="Pause" HorizontalAlignment="Left" Margin="340,300,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False"/>
+        <Button x:Name="BtnPausePatron" Content="Pause" HorizontalAlignment="Left" Margin="651,301,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
