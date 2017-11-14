@@ -32,9 +32,9 @@ namespace Lab6
                 this.Callback = Callback;
 
                 stopwatch.Start();
-                while (stopwatch.Elapsed < TimeSpan.FromSeconds(10))
+                while (stopwatch.Elapsed < TimeSpan.FromSeconds(120))
                 {
-                    Thread.Sleep(random.Next(1000, 5000));
+                    Thread.Sleep(random.Next(3000, 10000));
                     string patronName = PatronNameList[random.Next(PatronNameList.Count)];
                     patronCallback(new Patron(patronName));
                     Callback($"{patronName} has entered the bar.");

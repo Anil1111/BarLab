@@ -27,17 +27,20 @@ namespace Lab6
 
             Task.Run(() =>
             {
-                while((BarIsOpen && CleanGlassStack.Count() == 8))
+                while (BarIsOpen)
                 {
-                    if (!DirtyGlassStack.IsEmpty)
+                    while (CleanGlassStack.Count() != 8) //DO NOT TOUCH
                     {
-                        Callback("The waiter picks up a dirty glass from a table.");
-                        DirtyGlassStack.TryPop(out Glass g);
-                        Thread.Sleep(1000);
-                        Callback("The waiter is washing a glass.");
-                        Thread.Sleep(1000);
-                        Callback("The waiter places the clean glass back on the shelf.");
-                        CleanGlassStack.Push(new Glass());
+                        if (!DirtyGlassStack.IsEmpty)
+                        {
+                            Callback("The waiter picks up a dirty glass from a table.");
+                            DirtyGlassStack.TryPop(out Glass g);
+                            Thread.Sleep(10000);
+                            Callback("The waiter is washing a glass.");
+                            Thread.Sleep(15000);
+                            Callback("The waiter places the clean glass back on the shelf.");
+                            CleanGlassStack.Push(new Glass());
+                        }
                     }
                 }
                 callback("The waiter goes home.");

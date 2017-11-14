@@ -11,21 +11,17 @@
             <ColumnDefinition Width="727*"/>
             <ColumnDefinition Width="216*"/>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="ListBartender" HorizontalAlignment="Left" Height="257" Margin="10,34,0,0" VerticalAlignment="Top" Width="300"/>
-        <ListBox x:Name="ListWaiter" HorizontalAlignment="Left" Height="257" Margin="329,34,0,0" VerticalAlignment="Top" Width="300"/>
-        <ListBox x:Name="ListPatron" HorizontalAlignment="Left" Height="257" Margin="651,34,0,0" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2"/>
-        <Button x:Name="BtnStart" Content="Open bar" HorizontalAlignment="Left" Margin="67,339,0,0" VerticalAlignment="Top" Width="94" Height="27" Click="BtnStart_Click"/>
-        <Button x:Name="BtnPausAll" Content="Pause all" HorizontalAlignment="Left" Margin="67,381,0,0" VerticalAlignment="Top" Width="94" Height="27" IsEnabled="False"/>
-        <Button x:Name="BtnClose" Content="Close bar" HorizontalAlignment="Left" Margin="69,420,0,0" VerticalAlignment="Top" Width="92" Height="27" IsEnabled="False" Click="BtnClose_Click"/>
+        <ListBox x:Name="ListBartender" HorizontalAlignment="Left" Height="276" Margin="10,34,0,0" VerticalAlignment="Top" Width="300"/>
+        <ListBox x:Name="ListWaiter" HorizontalAlignment="Left" Height="276" Margin="329,34,0,0" VerticalAlignment="Top" Width="300"/>
+        <ListBox x:Name="ListPatron" HorizontalAlignment="Left" Height="276" Margin="651,34,0,0" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2"/>
+        <Button x:Name="BtnStart" Content="Open bar" HorizontalAlignment="Left" Margin="48,339,0,0" VerticalAlignment="Top" Width="210" Height="57" Click="BtnStart_Click" FontSize="16"/>
         <Label x:Name="LblBartender" Content="Bartender" HorizontalAlignment="Left" Margin="9,6,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label x:Name="LblWaiter" Content="Waiter" HorizontalAlignment="Left" Margin="329,6,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label x:Name="LblPatron" Content="Patron" HorizontalAlignment="Left" Margin="651,3,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="LblPatronCount" Content="Patrons  in bar: 0" HorizontalAlignment="Left" Margin="201,339,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LblChairCount" Content="Vacant chairs: 9 (9 total)" HorizontalAlignment="Left" Margin="201,370,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LblGlassCount" Content="Glasses on shelf: 8 (8 total)" HorizontalAlignment="Left" Margin="201,401,0,0" VerticalAlignment="Top" />
-        <Button x:Name="BtnPauseBartender" Content="Pause " HorizontalAlignment="Left" Margin="23,301,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False"/>
-        <Button x:Name="BtnPauseWaiter" Content="Pause" HorizontalAlignment="Left" Margin="340,300,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False"/>
-        <Button x:Name="BtnPausePatron" Content="Pause" HorizontalAlignment="Left" Margin="651,301,0,0" VerticalAlignment="Top" Width="170" IsEnabled="False" Grid.ColumnSpan="2"/>
+        <Label x:Name="LblPatronCount" Content="Patrons  in bar: 0" HorizontalAlignment="Left" Margin="329,332,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LblChairCount" Content="Vacant chairs: 9 (9 total)" HorizontalAlignment="Left" Margin="329,363,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LblGlassCount" Content="Glasses on shelf: 8 (8 total)" HorizontalAlignment="Left" Margin="329,394,0,0" VerticalAlignment="Top" />
+        <Label x:Name="LblTimeLeftOpen" Content="Time left open: " HorizontalAlignment="Left" Margin="329,420,0,0" VerticalAlignment="Top" Width="136"/>
 
     </Grid>
 </Window>

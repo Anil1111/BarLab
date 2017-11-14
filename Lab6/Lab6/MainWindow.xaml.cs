@@ -23,7 +23,6 @@ namespace Lab6
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CancellationTokenSource cts = new CancellationTokenSource();
         
         //Patron queue
         ConcurrentQueue<Patron> patronQueue = new ConcurrentQueue<Patron>();
@@ -47,8 +46,6 @@ namespace Lab6
         }
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
-            CancellationToken ct = cts.Token;
-            BtnClose.IsEnabled = true;
             BtnStart.IsEnabled = false;
             CreateGlassStack();
             CreateChairStack();
@@ -94,13 +91,6 @@ namespace Lab6
         private void AddPatronToQueue(Patron p)
         {
             patronQueue.Enqueue(p);
-        }
-
-        private void BtnClose_Click(object sender, RoutedEventArgs e)
-        {
-            cts.Cancel();
-            BtnClose.IsEnabled = true;
-            BtnStart.IsEnabled = false;
         }
 
         //Function that creates glass objects and adds to ConcurrentStack

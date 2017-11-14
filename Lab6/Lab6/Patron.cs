@@ -41,15 +41,15 @@ namespace Lab6
                 patronNameQueue.Dequeue();
                 while (FreeChairStack.IsEmpty)
                 {
-                    callback($"{BeerDrinkingPatron} is looking for a place to sit.");
+                    Callback($"{BeerDrinkingPatron} is looking for a place to sit.");
                     Thread.Sleep(4000);
                 }
-                callback($"{BeerDrinkingPatron} sits down.");
                 FreeChairStack.TryPop(out Chair c);
+                Callback($"{BeerDrinkingPatron} sits down.");
                 Thread.Sleep(random.Next(10000, 20000)); //random mellan 10-20 sek 
                 FreeChairStack.Push(new Chair());
-                dirtyGlassStack.Push(new Glass());
-                callback($"{BeerDrinkingPatron} finishes the beer and leaves the bar.");
+                DirtyGlassStack.Push(new Glass());
+                Callback($"{BeerDrinkingPatron} finishes the beer and leaves the bar.");
             });
         }
     }

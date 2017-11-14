@@ -39,15 +39,14 @@ namespace Lab6
                         if (!cleanGlassStack.IsEmpty)
                         {
                             cleanGlassStack.TryPop(out Glass g);
-                            Callback($"The Bartender is fetching {((Patron)PatronQueue.First()).Name} a glass");
+                            Thread.Sleep(1000);
+                            Callback($"The Bartender is fetching {((Patron)PatronQueue.First()).Name} a glass.");
                             Thread.Sleep(3000);
                             Callback($"The Bartender is pouring {((Patron)PatronQueue.First()).Name} a beer.");
                             Thread.Sleep(3000);
 
-                            //If Patron has a beer:
-                            //Patron looks for chairs and triggers Sitdown(). 
-                            //Sitdown() dequeues Patrons from its queue instead of the bartender queue
                             PatronQueue.First().SitDown(PatronListCallback, DirtyGlassStack, FreeChairStack, PatronQueue);
+                            // FLYTTA DENNA TILL PATRON-KLASSEN. Patrons ska dequeueas när de har gått, inte när de fått en öl
                             PatronQueue.TryDequeue(out Patron p);
                         }
                         else
@@ -59,9 +58,10 @@ namespace Lab6
                     else
                     {
                         Callback("The Bartender is waiting for Patrons.");
+                        Thread.Sleep(3000);
                     }
                 }
-                Callback("bartender jobbar inte");
+                Callback("The bartender goes home.");
             });
         }
         
