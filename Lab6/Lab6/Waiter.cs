@@ -29,7 +29,7 @@ namespace Lab6
             {
                 while (BarIsOpen)
                 {
-                    while (CleanGlassStack.Count() != 8) //DO NOT TOUCH
+                    while (CleanGlassStack.Count() != 8) 
                     {
                         if (!DirtyGlassStack.IsEmpty)
                         {

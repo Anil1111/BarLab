@@ -47,7 +47,7 @@ namespace Lab6
 
                             PatronQueue.First().SitDown(PatronListCallback, DirtyGlassStack, FreeChairStack, PatronQueue);
                             // FLYTTA DENNA TILL PATRON-KLASSEN. Patrons ska dequeueas när de har gått, inte när de fått en öl
-                            PatronQueue.TryDequeue(out Patron p);
+                            //PatronQueue.TryDequeue(out Patron p);
                         }
                         else
                         {

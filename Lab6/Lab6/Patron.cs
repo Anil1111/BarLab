@@ -37,6 +37,7 @@ namespace Lab6
 
             Task.Run(() =>
             {
+                patronNameQueue.Enqueue(PatronQueue.FirstOrDefault().Name);
                 BeerDrinkingPatron = patronNameQueue.FirstOrDefault();
                 patronNameQueue.Dequeue();
                 while (FreeChairStack.IsEmpty)
@@ -47,6 +48,7 @@ namespace Lab6
                 FreeChairStack.TryPop(out Chair c);
                 Callback($"{BeerDrinkingPatron} sits down.");
                 Thread.Sleep(random.Next(10000, 20000)); //random mellan 10-20 sek 
+                PatronQueue.TryDequeue(out Patron p);
                 FreeChairStack.Push(new Chair());
                 DirtyGlassStack.Push(new Glass());
                 Callback($"{BeerDrinkingPatron} finishes the beer and leaves the bar.");
