@@ -35,9 +35,9 @@ namespace Lab6
                         {
                             Callback("The waiter picks up a dirty glass from a table.");
                             DirtyGlassStack.TryPop(out Glass g);
-                            Thread.Sleep(10000);
+                            Thread.Sleep(5000);
                             Callback("The waiter is washing a glass.");
-                            Thread.Sleep(15000);
+                            Thread.Sleep(7500);
                             Callback("The waiter places the clean glass back on the shelf.");
                             CleanGlassStack.Push(new Glass());
                         }
