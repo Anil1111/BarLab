@@ -54,7 +54,7 @@ namespace Lab6
             CreateChairStack();
 
             bouncer.Work(UpdatePatronList, AddPatronToQueue);
-            bartender.Work(patronQueue, UpdateBartenderList, cleanGlassStack, 
+            bartender.Work(patronQueue, UpdateBartenderList, UpdatePatronList, cleanGlassStack, 
                 dirtyGlassStack, bouncer.IsWorking, freeChairStack);
             waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, patronQueue);
         }
@@ -64,8 +64,9 @@ namespace Lab6
         {
             Dispatcher.Invoke(() => 
             {
-                LblPatronCount.Content = "Patrons in bar: " + patronQueue.Count();
                 ListPatron.Items.Insert(0, info);
+                LblPatronCount.Content = "Patrons in bar: " + ((int)patronQueue.Count()+1);
+                LblChairCount.Content = $"Vacant chairs: {freeChairStack.Count()} (9 total)";
             });
         }
 
@@ -75,6 +76,7 @@ namespace Lab6
             Dispatcher.Invoke(() =>
             {
                 ListBartender.Items.Insert(0, info);
+                LblGlassCount.Content = $"Glasses on shelf: {cleanGlassStack.Count()} (8 total)";
             });
         }
 
@@ -84,6 +86,7 @@ namespace Lab6
             Dispatcher.Invoke(() =>
             {
                 ListWaiter.Items.Insert(0, info);
+                LblGlassCount.Content = $"Glasses on shelf: {cleanGlassStack.Count()} (8 total)";
             });
         }
 
@@ -113,7 +116,7 @@ namespace Lab6
         //Function that creates chair objects and add to ConcurrentStack
         private void CreateChairStack()
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 1; i++)
             {
                 freeChairStack.Push(new Chair());
                 Console.WriteLine("Added chair object to stack");

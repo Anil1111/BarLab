@@ -17,7 +17,7 @@ namespace Lab6
         private ConcurrentStack<Chair> FreeChairStack;
         public bool BarIsOpen { get; set; }
 
-        public void Work(ConcurrentQueue<Patron> patronQueue, Action<string> callback, 
+        public void Work(ConcurrentQueue<Patron> patronQueue, Action<string> callback, Action<string> PatronListCallback,
             ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack, bool bartenderIsWorking, ConcurrentStack<Chair> freeChairStack)
 
         {
@@ -47,7 +47,7 @@ namespace Lab6
                             //If Patron has a beer:
                             //Patron looks for chairs and triggers Sitdown(). 
                             //Sitdown() dequeues Patrons from its queue instead of the bartender queue
-                            PatronQueue.First().SitDown(Callback, DirtyGlassStack, FreeChairStack, PatronQueue);
+                            PatronQueue.First().SitDown(PatronListCallback, DirtyGlassStack, FreeChairStack, PatronQueue);
                             PatronQueue.TryDequeue(out Patron p);
                         }
                         else
