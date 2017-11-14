@@ -55,7 +55,7 @@ namespace Lab6
 
             bouncer.Work(UpdatePatronList, AddPatronToQueue);
             bartender.Work(patronQueue, UpdateBartenderList, cleanGlassStack, 
-                dirtyGlassStack, bouncer.IsWorking);
+                dirtyGlassStack, bouncer.IsWorking, freeChairStack);
             waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, patronQueue);
         }
 

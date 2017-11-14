@@ -14,16 +14,18 @@ namespace Lab6
         private ConcurrentQueue<Patron> PatronQueue;
         private ConcurrentStack<Glass> DirtyGlassStack;
         private ConcurrentStack<Glass> CleanGlassStack;
+        private ConcurrentStack<Chair> FreeChairStack;
         public bool BarIsOpen { get; set; }
 
-        public void Work(ConcurrentQueue<Patron> patronBarQueue, Action<string> callback, 
-            ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack, bool bartenderIsWorking)
+        public void Work(ConcurrentQueue<Patron> patronQueue, Action<string> callback, 
+            ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack, bool bartenderIsWorking, ConcurrentStack<Chair> freeChairStack)
 
         {
             this.Callback = callback;
-            this.PatronQueue = patronBarQueue;
+            this.PatronQueue = patronQueue;
             this.DirtyGlassStack = dirtyGlassStack;
             this.CleanGlassStack = cleanGlassStack;
+            this.FreeChairStack = freeChairStack;
             this.BarIsOpen = bartenderIsWorking;
 
             Task.Run(() =>
@@ -32,32 +34,33 @@ namespace Lab6
                 {
                     Console.WriteLine("Bartendern jobbar");
                     Thread.Sleep(1000);
-                    if (!patronBarQueue.IsEmpty)
+                    if (!PatronQueue.IsEmpty)
                     {
                         if (!cleanGlassStack.IsEmpty)
                         {
-                            callback($"The Bartender is fetching {((Patron)patronBarQueue.First()).Name} a glass");
+                            Callback($"The Bartender is fetching {((Patron)PatronQueue.First()).Name} a glass");
                             Thread.Sleep(3000);
                             cleanGlassStack.TryPop(out Glass g);
-                            callback($"The Bartender is pouring {((Patron)patronBarQueue.First()).Name} a beer.");
+                            Callback($"The Bartender is pouring {((Patron)PatronQueue.First()).Name} a beer.");
                             Thread.Sleep(3000);
 
                             //If Patron has a beer:
                             //Patron looks for chairs and triggers Sitdown(). 
                             //Sitdown() dequeues Patrons from its queue instead of the bartender queue
-                            patronBarQueue.TryDequeue(out Patron p);
+                            PatronQueue.First().SitDown(Callback, DirtyGlassStack, FreeChairStack, PatronQueue);
+                            PatronQueue.TryDequeue(out Patron p);
                         }
                         else
                         {
-                            callback("The Bartender is waiting for Glasses.");
+                            Callback("The Bartender is waiting for Glasses.");
                         }
                     }
                     else
                     {
-                        callback("The Bartender is waiting for Patrons.");
+                        Callback("The Bartender is waiting for Patrons.");
                     }
                 }
-                Console.WriteLine("bartender jobbar inte");
+                Callback("bartender jobbar inte");
             });
         }
         
