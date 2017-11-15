@@ -19,8 +19,8 @@
         <Label x:Name="LblWaiter" Content="Waiter" HorizontalAlignment="Left" Margin="329,6,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label x:Name="LblPatron" Content="Patron" HorizontalAlignment="Left" Margin="651,3,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label x:Name="LblPatronCount" Content="Patrons  in bar: 0" HorizontalAlignment="Left" Margin="329,332,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LblChairCount" Content="Vacant chairs: 9 (9 total)" HorizontalAlignment="Left" Margin="329,363,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LblGlassCount" Content="Glasses on shelf: 8 (8 total)" HorizontalAlignment="Left" Margin="329,394,0,0" VerticalAlignment="Top" />
+        <Label x:Name="LblChairCount" Content="Vacant chairs: " HorizontalAlignment="Left" Margin="329,363,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LblGlassCount" Content="Glasses on shelf:" HorizontalAlignment="Left" Margin="329,394,0,0" VerticalAlignment="Top" />
         <Label x:Name="lblTimeLeftOpen" Content="Time left open: " HorizontalAlignment="Left" Margin="329,425,0,0" VerticalAlignment="Top"/>
 
     </Grid>

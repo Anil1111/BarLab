@@ -13,6 +13,9 @@ namespace Lab6
         public string Name { get; set; }
         Queue<string> patronNameQueue = new Queue<string>();
 
+        private int patronDrinkingIntervalMin = 10000;
+        private int patronDrinkingIntervalMax = 20000;
+
         public Patron(string name)
         {
             this.Name = name;
@@ -47,7 +50,7 @@ namespace Lab6
                 }
                 FreeChairStack.TryPop(out Chair c);
                 Callback($"{BeerDrinkingPatron} sits down.");
-                Thread.Sleep(random.Next(10000, 20000)); //random mellan 10-20 sek 
+                Thread.Sleep(random.Next(patronDrinkingIntervalMin, patronDrinkingIntervalMax)); //random mellan 10-20 sek 
                 PatronQueue.TryDequeue(out Patron p);
                 FreeChairStack.Push(new Chair());
                 DirtyGlassStack.Push(new Glass());
