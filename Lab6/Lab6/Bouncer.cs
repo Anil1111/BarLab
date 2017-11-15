@@ -24,7 +24,7 @@ namespace Lab6
             { "Jonas", "Klas", "Göran", "Getrud", "Daniel", "Petra", "Tor", "Styr-Björn", "Greta", "Livingston", "Margret" };
 
         //Work method
-        public void Work(Action<string> Callback, Action<Patron> patronCallback)
+        public void Work(Action<string> Callback, Action<Patron> patronCallback, int barOpenBouncer)
         {
             IsWorking = true;
             Task.Run(() => {
@@ -32,7 +32,7 @@ namespace Lab6
                 this.Callback = Callback;
 
                 stopwatch.Start();
-                while (stopwatch.Elapsed < TimeSpan.FromSeconds(10))
+                while (stopwatch.Elapsed < TimeSpan.FromSeconds(barOpenBouncer))
                 {
                     Thread.Sleep(random.Next(3000, 10000));
                     string patronName = PatronNameList[random.Next(PatronNameList.Count)];

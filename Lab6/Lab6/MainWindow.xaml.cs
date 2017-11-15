@@ -38,22 +38,57 @@ namespace Lab6
         Bartender bartender = new Bartender();
         Waiter waiter = new Waiter();
 
+        // Variables for the test cases
+        // Patron drinking time is found in the patron class
+        private int barOpenUI = 120;
+        private int barOpenBouncer = 120;
+        private int glasses = 22;
+        private int chairs = 11;
+        private int waiterWashingSec = 15000;
+        private int waiterPickingGlassesSec = 10000;
+
+
+
+
         public MainWindow()
         {
             InitializeComponent();
             bouncer.IsClosing += bartender.StopServing;
             bouncer.IsClosing += waiter.StopServing;
+
         }
+
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             BtnStart.IsEnabled = false;
             CreateGlassStack();
             CreateChairStack();
 
-            bouncer.Work(UpdatePatronList, AddPatronToQueue);
+            // Timer to be shown in the UI
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+
+            bouncer.Work(UpdatePatronList, AddPatronToQueue, barOpenBouncer);
             bartender.Work(patronQueue, UpdateBartenderList, UpdatePatronList, cleanGlassStack, 
-                dirtyGlassStack, bouncer.IsWorking, freeChairStack);
-            waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, patronQueue);
+                    dirtyGlassStack, bouncer.IsWorking, freeChairStack);
+            waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, 
+                    patronQueue, waiterWashingSec, waiterPickingGlassesSec);
+        }
+
+        // Event handler for the timer
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if(barOpenUI > 0)
+            {
+                barOpenUI--;
+                lblTimeLeftOpen.Content = string.Format($"Time left open: {barOpenUI}");
+            }
+            else
+            {
+                lblTimeLeftOpen.Content = "Time left open: 0";
+            }
         }
 
         //Updating Listbox elements for Patron ListBox
@@ -63,7 +98,7 @@ namespace Lab6
             {
                 ListPatron.Items.Insert(0, info);
                 LblPatronCount.Content = $"Patrons in bar: {patronQueue.Count()}";
-                LblChairCount.Content = $"Vacant chairs: {freeChairStack.Count()} (9 total)";
+                LblChairCount.Content = $"Vacant chairs: {freeChairStack.Count()} ({chairs} total)";
             });
         }
 
@@ -73,7 +108,8 @@ namespace Lab6
             Dispatcher.Invoke(() =>
             {
                 ListBartender.Items.Insert(0, info);
-                LblGlassCount.Content = $"Glasses on shelf: {cleanGlassStack.Count()} (8 total)";
+                LblGlassCount.Content = $"Glasses on shelf: {cleanGlassStack.Count()} ({glasses} total)";
+                LblChairCount.Content = $"Vacant chairs: {freeChairStack.Count()} ({chairs} total)";
             });
         }
 
@@ -83,7 +119,7 @@ namespace Lab6
             Dispatcher.Invoke(() =>
             {
                 ListWaiter.Items.Insert(0, info);
-                LblGlassCount.Content = $"Glasses on shelf: {cleanGlassStack.Count()} (8 total)";
+                LblGlassCount.Content = $"Glasses on shelf: {cleanGlassStack.Count()} ({glasses} total)";
             });
         }
 
@@ -96,7 +132,7 @@ namespace Lab6
         //Function that creates glass objects and adds to ConcurrentStack
         private void CreateGlassStack()
         {
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < glasses; i++)
             {
                 cleanGlassStack.Push(new Glass());
                 Console.WriteLine("Added glass object to stack.");
@@ -106,7 +142,7 @@ namespace Lab6
         //Function that creates chair objects and add to ConcurrentStack
         private void CreateChairStack()
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < chairs; i++)
             {
                 freeChairStack.Push(new Chair());
                 Console.WriteLine("Added chair object to stack");

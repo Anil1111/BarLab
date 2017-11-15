@@ -17,7 +17,8 @@ namespace Lab6
         public bool BarIsOpen { get; set; }
 
         public void Work(Action<string> callback, ConcurrentStack<Glass> dirtyGlassStack, 
-            ConcurrentStack<Glass> cleanGlassStack, bool bouncerIsWorking, ConcurrentQueue<Patron> patronQueue)
+            ConcurrentStack<Glass> cleanGlassStack, bool bouncerIsWorking, ConcurrentQueue<Patron> patronQueue, 
+            int waiterWashingSec, int waiterPickingGlassesSec)
         {
             this.Callback = callback;
             this.DirtyGlassStack = dirtyGlassStack;
@@ -35,9 +36,9 @@ namespace Lab6
                         {
                             Callback("The waiter picks up a dirty glass from a table.");
                             DirtyGlassStack.TryPop(out Glass g);
-                            Thread.Sleep(5000);
+                            Thread.Sleep(waiterWashingSec);
                             Callback("The waiter is washing a glass.");
-                            Thread.Sleep(7500);
+                            Thread.Sleep(waiterPickingGlassesSec);
                             Callback("The waiter places the clean glass back on the shelf.");
                             CleanGlassStack.Push(new Glass());
                         }

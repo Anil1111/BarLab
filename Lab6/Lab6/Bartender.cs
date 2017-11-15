@@ -18,7 +18,8 @@ namespace Lab6
         public bool BarIsOpen { get; set; }
 
         public void Work(ConcurrentQueue<Patron> patronQueue, Action<string> callback, Action<string> PatronListCallback,
-            ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack, bool bartenderIsWorking, ConcurrentStack<Chair> freeChairStack)
+            ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack, 
+            bool bartenderIsWorking, ConcurrentStack<Chair> freeChairStack)
 
         {
             this.Callback = callback;
@@ -33,7 +34,6 @@ namespace Lab6
                 while (BarIsOpen || !PatronQueue.IsEmpty) // Kommer att jobba medan det finns kunder kvar
                 {
                     Console.WriteLine("Bartendern jobbar");
-                    //Thread.Sleep(1000);
                     if (!PatronQueue.IsEmpty)
                     {
                         if (!cleanGlassStack.IsEmpty)
