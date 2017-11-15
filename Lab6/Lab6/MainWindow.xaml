@@ -21,7 +21,7 @@
         <Label x:Name="LblPatronCount" Content="Patrons  in bar: 0" HorizontalAlignment="Left" Margin="329,332,0,0" VerticalAlignment="Top"/>
         <Label x:Name="LblChairCount" Content="Vacant chairs: 9 (9 total)" HorizontalAlignment="Left" Margin="329,363,0,0" VerticalAlignment="Top"/>
         <Label x:Name="LblGlassCount" Content="Glasses on shelf: 8 (8 total)" HorizontalAlignment="Left" Margin="329,394,0,0" VerticalAlignment="Top" />
-        <Label x:Name="LblTimeLeftOpen" Content="Time left open: " HorizontalAlignment="Left" Margin="329,420,0,0" VerticalAlignment="Top" Width="136"/>
+        <Label x:Name="lblTimeLeftOpen" Content="Time left open: " HorizontalAlignment="Left" Margin="329,425,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

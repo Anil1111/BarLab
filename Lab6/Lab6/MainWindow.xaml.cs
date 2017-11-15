@@ -38,22 +38,39 @@ namespace Lab6
         Bartender bartender = new Bartender();
         Waiter waiter = new Waiter();
 
+        private int timeSeconds = 120;
+
         public MainWindow()
         {
             InitializeComponent();
             bouncer.IsClosing += bartender.StopServing;
             bouncer.IsClosing += waiter.StopServing;
+
         }
+
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             BtnStart.IsEnabled = false;
             CreateGlassStack();
             CreateChairStack();
 
+            // Timer to be shown in the UI
+            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+
             bouncer.Work(UpdatePatronList, AddPatronToQueue);
             bartender.Work(patronQueue, UpdateBartenderList, UpdatePatronList, cleanGlassStack, 
                 dirtyGlassStack, bouncer.IsWorking, freeChairStack);
             waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, patronQueue);
+        }
+
+        // Event handler for the timer
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            timeSeconds--;
+            lblTimeLeftOpen.Content = string.Format($"Time left open: {timeSeconds}");
         }
 
         //Updating Listbox elements for Patron ListBox
