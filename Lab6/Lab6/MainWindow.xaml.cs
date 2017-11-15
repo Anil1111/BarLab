@@ -42,8 +42,8 @@ namespace Lab6
         // Patron drinking time is found in the patron class
         private int barOpenUI = 120;
         private int barOpenBouncer = 120;
-        private int glasses = 8;
-        private int chairs = 9;
+        private int glasses = 22;
+        private int chairs = 11;
         private int waiterWashingSec = 15000;
         private int waiterPickingGlassesSec = 10000;
 
@@ -80,8 +80,15 @@ namespace Lab6
         // Event handler for the timer
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            barOpenUI--;
-            lblTimeLeftOpen.Content = string.Format($"Time left open: {barOpenUI}");
+            if(barOpenUI > 0)
+            {
+                barOpenUI--;
+                lblTimeLeftOpen.Content = string.Format($"Time left open: {barOpenUI}");
+            }
+            else
+            {
+                lblTimeLeftOpen.Content = "Time left open: 0";
+            }
         }
 
         //Updating Listbox elements for Patron ListBox
