@@ -44,8 +44,8 @@ namespace Lab6
         // Patron drinking time is found in the patron class
         private int barOpenUI = 120;
         private int barOpenBouncer = 120;
-        private int glasses = 20;
-        private int chairs = 3;
+        private int glasses = 8;
+        private int chairs = 9;
         private int waiterWashingSec = 15000;
         private int waiterPickingGlassesSec = 10000;
         

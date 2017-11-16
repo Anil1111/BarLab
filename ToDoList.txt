@@ -21,7 +21,7 @@ Tester:
 	Funkar galant. 
 
 	Test 2:
-	-
+	-	
 		
 	Test 3:
 	Ändrade max värden för antalet objekt som skapats upp för Glasen och stolarna. 
@@ -41,4 +41,42 @@ Tester:
 
 
 	Test 8:
-	-
+	//Work method
+        public void Work(Action<string> Callback, Action<Patron> patronCallback, int barOpenBouncer)
+        {
+            IsWorking = true;
+            Task.Run(() => {
+                this.PatronCallback = patronCallback;
+                this.Callback = Callback;
+                stopwatch.Start();
+                while (stopwatch.Elapsed < TimeSpan.FromSeconds(barOpenBouncer))
+                {
+                    if (stopwatch.Elapsed > TimeSpan.FromSeconds(20) && bouncerTest)
+                    {
+                        AddManyPatrons();
+                        bouncerTest = false;
+                    }
+                    Thread.Sleep(random.Next(6000, 20000));
+                    string patronName = PatronNameList[random.Next(PatronNameList.Count)];
+                    PatronCallback(new Patron(patronName));
+                    Callback($"{patronName} has entered the bar.");
+                }
+                stopwatch.Stop();
+                IsClosing();
+                Callback("The bouncer goes home.");
+            });
+        }
+        public void AddManyPatrons()
+        {
+            Console.WriteLine("Hej");
+            int manyPatrons = 0;
+            while(manyPatrons <= 15)
+            {
+                string patronName = PatronNameList[random.Next(PatronNameList.Count)];
+                PatronCallback(new Patron(patronName));
+                Callback($"{patronName} has entered the bar.");
+                manyPatrons++;
+            }
+        }
+		
+		

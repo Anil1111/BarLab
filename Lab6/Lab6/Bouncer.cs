@@ -22,7 +22,9 @@ namespace Lab6
         
         List<string> PatronNameList = new List<string>()
             { "Jonas", "Klas", "Göran", "Getrud", "Daniel", "Petra", "Tor", "Styr-Björn", "Greta", "Livingston", "Margret",
-             "Ingemar", "Birgit", "David", "Jon", "Tyrion", "Gandalf", "Jamie", "Frodo", "Ron", "Harry", "Hagrid"};
+             "Ingemar", "Birgit", "David", "Jon", "Tyrion", "Gandalf", "Jamie", "Frodo", "Ron", "Harry", "Hagrid", "Kelsier",
+            "Joakim", "Simone", "Dart", "Staubi", "Toby", "Doris", "Sonen",
+            "Randy Marsh from South Park" };
 
         //Work method
         public void Work(Action<string> Callback, Action<Patron> patronCallback, int barOpenBouncer)

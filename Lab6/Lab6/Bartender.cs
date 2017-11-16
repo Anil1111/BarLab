@@ -33,12 +33,6 @@ namespace Lab6
 
             Task.Run(() =>
             {
-
-                //För tillfället så går Bartendern hem så fort Bartender queuen är tom, vilket är fel. 
-                //Kolla närmare på en lösning. Det bör ju bara vara en if-jonas som kan lösa det. Behöver kaffe. 
-                //They're coming... 
-                //Balrogen är här, Frodo. 
-                //Ich bin Disco Gandalf.
                 while (BarIsOpen || !uiPatronCountDequeue.IsEmpty)
                 {
                     if (!PatronQueue.IsEmpty && !BartenderQueue.IsEmpty)

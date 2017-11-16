@@ -41,13 +41,6 @@ namespace Lab6
 
             Task.Run(() =>
             {
-                //Console.WriteLine(patronNameQueue.First());
-                //patronNameQueue.Enqueue(PatronQueue.FirstOrDefault().Name);
-                //Console.WriteLine(patronNameQueue.First());
-                //BeerDrinkingPatron = patronNameQueue.FirstOrDefault();
-                //patronNameQueue.Dequeue();
-
-
                 tempQueue.Enqueue(PatronQueue.FirstOrDefault().Name);
                 BeerDrinkingPatron = tempQueue.First();
                 tempQueue.Dequeue();
