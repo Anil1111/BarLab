@@ -73,7 +73,7 @@ namespace Lab6
             bartender.Work(patronQueue, bartenderQueue, UpdateBartenderList, UpdatePatronList, cleanGlassStack, 
                     dirtyGlassStack, bouncer.IsWorking, freeChairStack, uiPatronCountQueue);
             waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, 
-                    patronQueue, waiterWashingSec, waiterPickingGlassesSec);
+                    patronQueue, waiterWashingSec, waiterPickingGlassesSec, glasses);
         }
 
         // Event handler for the timer
@@ -96,7 +96,7 @@ namespace Lab6
             Dispatcher.Invoke(() => 
             {
                 ListPatron.Items.Insert(0, info);
-                LblPatronCount.Content = $"Patrons in BAR: {uiPatronCountQueue.Count()}";
+                LblPatronCount.Content = $"Patrons in bar: {uiPatronCountQueue.Count()}";
                 LblChairCount.Content = $"Vacant chairs: {freeChairStack.Count()} ({chairs} total)";
             });
         }

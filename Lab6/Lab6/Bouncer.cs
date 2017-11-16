@@ -21,7 +21,8 @@ namespace Lab6
         public event Action IsClosing;
         
         List<string> PatronNameList = new List<string>()
-            { "Jonas", "Klas", "Göran", "Getrud", "Daniel", "Petra", "Tor", "Styr-Björn", "Greta", "Livingston", "Margret" };
+            { "Jonas", "Klas", "Göran", "Getrud", "Daniel", "Petra", "Tor", "Styr-Björn", "Greta", "Livingston", "Margret",
+             "Ingemar", "Birgit", "David", "Jon", "Tyrion", "Gandalf", "Jamie", "Frodo", "Ron", "Harry", "Hagrid"};
 
         //Work method
         public void Work(Action<string> Callback, Action<Patron> patronCallback, int barOpenBouncer)

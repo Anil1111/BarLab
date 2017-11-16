@@ -18,7 +18,7 @@ namespace Lab6
 
         public void Work(Action<string> callback, ConcurrentStack<Glass> dirtyGlassStack, 
             ConcurrentStack<Glass> cleanGlassStack, bool bouncerIsWorking, ConcurrentQueue<Patron> patronQueue, 
-            int waiterWashingSec, int waiterPickingGlassesSec)
+            int waiterWashingSec, int waiterPickingGlassesSec, int glasses)
         {
             this.Callback = callback;
             this.DirtyGlassStack = dirtyGlassStack;
@@ -30,7 +30,7 @@ namespace Lab6
             {
                 while (BarIsOpen)
                 {
-                    while (CleanGlassStack.Count() != 20) 
+                    while (CleanGlassStack.Count() != glasses) 
                     {
                         if (!DirtyGlassStack.IsEmpty)
                         {

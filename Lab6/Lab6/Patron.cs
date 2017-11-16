@@ -51,7 +51,7 @@ namespace Lab6
                 tempQueue.Enqueue(PatronQueue.FirstOrDefault().Name);
                 BeerDrinkingPatron = tempQueue.First();
                 tempQueue.Dequeue();
-                PatronQueue.TryDequeue(out Patron p);
+                PatronQueue.TryDequeue(out Patron p); 
 
                 while (FreeChairStack.IsEmpty)
                 {
@@ -61,7 +61,7 @@ namespace Lab6
                 FreeChairStack.TryPop(out Chair c);
                 Thread.Sleep(4000);
                 Callback($"{BeerDrinkingPatron} sits down.");
-                Thread.Sleep(random.Next(patronDrinkingIntervalMin, patronDrinkingIntervalMax)); //random mellan 10-20 sek 
+                Thread.Sleep(random.Next(patronDrinkingIntervalMin, patronDrinkingIntervalMax));
                 uiPatronCountDeQueue.TryDequeue(out string s);
                 FreeChairStack.Push(new Chair());
                 DirtyGlassStack.Push(new Glass());

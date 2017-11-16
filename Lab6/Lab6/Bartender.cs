@@ -39,7 +39,7 @@ namespace Lab6
                 //They're coming... 
                 //Balrogen är här, Frodo. 
                 //Ich bin Disco Gandalf.
-                while (BarIsOpen || !PatronQueue.IsEmpty)
+                while (BarIsOpen || !uiPatronCountDequeue.IsEmpty)
                 {
                     if (!PatronQueue.IsEmpty && !BartenderQueue.IsEmpty)
                     {
