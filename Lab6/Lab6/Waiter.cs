@@ -30,7 +30,7 @@ namespace Lab6
             {
                 while (BarIsOpen)
                 {
-                    while (CleanGlassStack.Count() != 8) 
+                    while (CleanGlassStack.Count() != 20) 
                     {
                         if (!DirtyGlassStack.IsEmpty)
                         {

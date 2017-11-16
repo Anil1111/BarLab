@@ -23,9 +23,11 @@ namespace Lab6
     /// </summary>
     public partial class MainWindow : Window
     {
-        
-        //Patron queue
+
+        //Patron queues
+        ConcurrentQueue<string> uiPatronCountQueue= new ConcurrentQueue<string>();
         ConcurrentQueue<Patron> patronQueue = new ConcurrentQueue<Patron>();
+        ConcurrentQueue<Patron> bartenderQueue = new ConcurrentQueue<Patron>();
 
         //Glass queues
         ConcurrentStack<Glass> cleanGlassStack = new ConcurrentStack<Glass>();
@@ -42,14 +44,11 @@ namespace Lab6
         // Patron drinking time is found in the patron class
         private int barOpenUI = 120;
         private int barOpenBouncer = 120;
-        private int glasses = 22;
-        private int chairs = 11;
+        private int glasses = 20;
+        private int chairs = 3;
         private int waiterWashingSec = 15000;
         private int waiterPickingGlassesSec = 10000;
-
-
-
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -70,9 +69,9 @@ namespace Lab6
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
-            bouncer.Work(UpdatePatronList, AddPatronToQueue, barOpenBouncer);
-            bartender.Work(patronQueue, UpdateBartenderList, UpdatePatronList, cleanGlassStack, 
-                    dirtyGlassStack, bouncer.IsWorking, freeChairStack);
+            bouncer.Work(UpdatePatronList, AddPatronToQueues, barOpenBouncer);
+            bartender.Work(patronQueue, bartenderQueue, UpdateBartenderList, UpdatePatronList, cleanGlassStack, 
+                    dirtyGlassStack, bouncer.IsWorking, freeChairStack, uiPatronCountQueue);
             waiter.Work(UpdateWaiterList, dirtyGlassStack, cleanGlassStack, bouncer.IsWorking, 
                     patronQueue, waiterWashingSec, waiterPickingGlassesSec);
         }
@@ -97,7 +96,7 @@ namespace Lab6
             Dispatcher.Invoke(() => 
             {
                 ListPatron.Items.Insert(0, info);
-                LblPatronCount.Content = $"Patrons in bar: {patronQueue.Count()}";
+                LblPatronCount.Content = $"Patrons in BAR: {uiPatronCountQueue.Count()}";
                 LblChairCount.Content = $"Vacant chairs: {freeChairStack.Count()} ({chairs} total)";
             });
         }
@@ -124,9 +123,11 @@ namespace Lab6
         }
 
         //Function that adds Patron to Bar
-        private void AddPatronToQueue(Patron p)
+        private void AddPatronToQueues(Patron p)
         {
             patronQueue.Enqueue(p);
+            bartenderQueue.Enqueue(p);
+            uiPatronCountQueue.Enqueue(p.Name);
         }
 
         //Function that creates glass objects and adds to ConcurrentStack

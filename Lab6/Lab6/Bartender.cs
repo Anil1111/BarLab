@@ -12,18 +12,20 @@ namespace Lab6
     {
         private Action<string> Callback;
         private ConcurrentQueue<Patron> PatronQueue;
+        private ConcurrentQueue<Patron> BartenderQueue;
         private ConcurrentStack<Glass> DirtyGlassStack;
         private ConcurrentStack<Glass> CleanGlassStack;
         private ConcurrentStack<Chair> FreeChairStack;
         public bool BarIsOpen { get; set; }
 
-        public void Work(ConcurrentQueue<Patron> patronQueue, Action<string> callback, Action<string> PatronListCallback,
+        public void Work(ConcurrentQueue<Patron> patronQueue, ConcurrentQueue<Patron> bartenderQueue, Action<string> callback, Action<string> PatronListCallback,
             ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack, 
-            bool bartenderIsWorking, ConcurrentStack<Chair> freeChairStack)
+            bool bartenderIsWorking, ConcurrentStack<Chair> freeChairStack, ConcurrentQueue<string> uiPatronCountDequeue)
 
         {
             this.Callback = callback;
             this.PatronQueue = patronQueue;
+            this.BartenderQueue = bartenderQueue;
             this.DirtyGlassStack = dirtyGlassStack;
             this.CleanGlassStack = cleanGlassStack;
             this.FreeChairStack = freeChairStack;
@@ -31,22 +33,26 @@ namespace Lab6
 
             Task.Run(() =>
             {
-                while (BarIsOpen || !PatronQueue.IsEmpty) // Kommer att jobba medan det finns kunder kvar
+
+                //För tillfället så går Bartendern hem så fort Bartender queuen är tom, vilket är fel. 
+                //Kolla närmare på en lösning. Det bör ju bara vara en if-jonas som kan lösa det. Behöver kaffe. 
+                //They're coming... 
+                //Balrogen är här, Frodo. 
+                //Ich bin Disco Gandalf.
+                while (BarIsOpen || !PatronQueue.IsEmpty)
                 {
-                    Console.WriteLine("Bartendern jobbar");
-                    if (!PatronQueue.IsEmpty)
+                    if (!PatronQueue.IsEmpty && !BartenderQueue.IsEmpty)
                     {
                         if (!cleanGlassStack.IsEmpty)
                         {
                             cleanGlassStack.TryPop(out Glass g);
                             Thread.Sleep(1000);
-
-                            //Patron Dequeue fuckar upp. Testa
-                            Callback($"The Bartender is fetching {PatronQueue.First().Name} a glass.");
+                            Callback($"The Bartender is fetching {BartenderQueue.First().Name} a glass.");
                             Thread.Sleep(3000);
-                            Callback($"The Bartender is pouring {PatronQueue.First().Name} a beer.");
+                            Callback($"The Bartender is pouring {BartenderQueue.First().Name} a beer.");
                             Thread.Sleep(3000);
-                            PatronQueue.FirstOrDefault().SitDown(PatronListCallback, DirtyGlassStack, FreeChairStack, PatronQueue);
+                            PatronQueue.FirstOrDefault().SitDown(PatronListCallback, DirtyGlassStack, FreeChairStack, PatronQueue, uiPatronCountDequeue);
+                            BartenderQueue.TryDequeue(out Patron p);
                         }
                         else
                         {
@@ -60,7 +66,7 @@ namespace Lab6
                         Thread.Sleep(3000);
                     }
                 }
-                Callback("The bartender goes home.");
+                Callback("The Bartender goes home.");
             });
         }
         

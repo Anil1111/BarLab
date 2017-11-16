@@ -12,6 +12,7 @@ namespace Lab6
     {
         public string Name { get; set; }
         Queue<string> patronNameQueue = new Queue<string>();
+        Queue<string> tempQueue = new Queue<string>();
 
         private int patronDrinkingIntervalMin = 10000;
         private int patronDrinkingIntervalMax = 20000;
@@ -31,7 +32,7 @@ namespace Lab6
 
         //Function that tells the Patron to "sit down" and drink the beer before disappearing from the queue
         public void SitDown(Action<string> callback, ConcurrentStack<Glass> dirtyGlassStack, ConcurrentStack<Chair> freeChairStack,
-            ConcurrentQueue<Patron> patronQueue)
+            ConcurrentQueue<Patron> patronQueue, ConcurrentQueue<string> uiPatronCountDeQueue)
         {
             this.Callback = callback;
             this.DirtyGlassStack = dirtyGlassStack;
@@ -40,18 +41,28 @@ namespace Lab6
 
             Task.Run(() =>
             {
-                patronNameQueue.Enqueue(PatronQueue.FirstOrDefault().Name);
-                BeerDrinkingPatron = patronNameQueue.FirstOrDefault();
-                patronNameQueue.Dequeue();
+                //Console.WriteLine(patronNameQueue.First());
+                //patronNameQueue.Enqueue(PatronQueue.FirstOrDefault().Name);
+                //Console.WriteLine(patronNameQueue.First());
+                //BeerDrinkingPatron = patronNameQueue.FirstOrDefault();
+                //patronNameQueue.Dequeue();
+
+
+                tempQueue.Enqueue(PatronQueue.FirstOrDefault().Name);
+                BeerDrinkingPatron = tempQueue.First();
+                tempQueue.Dequeue();
+                PatronQueue.TryDequeue(out Patron p);
+
                 while (FreeChairStack.IsEmpty)
                 {
                     Callback($"{BeerDrinkingPatron} is looking for a place to sit.");
-                    Thread.Sleep(4000);
+                    Thread.Sleep(1000);
                 }
                 FreeChairStack.TryPop(out Chair c);
+                Thread.Sleep(4000);
                 Callback($"{BeerDrinkingPatron} sits down.");
                 Thread.Sleep(random.Next(patronDrinkingIntervalMin, patronDrinkingIntervalMax)); //random mellan 10-20 sek 
-                PatronQueue.TryDequeue(out Patron p);
+                uiPatronCountDeQueue.TryDequeue(out string s);
                 FreeChairStack.Push(new Chair());
                 DirtyGlassStack.Push(new Glass());
                 Callback($"{BeerDrinkingPatron} finishes the beer and leaves the bar.");
