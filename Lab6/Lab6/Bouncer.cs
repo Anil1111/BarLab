@@ -16,6 +16,7 @@ namespace Lab6
         Random random = new Random();
         Stopwatch stopwatch = new Stopwatch();
         private int bouncerSpeed = 1;
+        bool bouncerTest = true;
 
         public bool IsWorking { get; set; }
 
@@ -27,20 +28,47 @@ namespace Lab6
             "Joakim", "Simone", "Dart", "Staubi", "Toby", "Doris", "Sonen",
             "Randy Marsh from South Park" };
 
-        //Work method
+        ////Work method
+        //public void Work(Action<string> Callback, Action<Patron> patronCallback, int barOpenBouncer)
+        //{
+        //    IsWorking = true;
+        //    Task.Run(() =>
+        //    {
+        //        this.PatronCallback = patronCallback;
+        //        this.Callback = Callback;
+        //        stopwatch.Start();
+        //        while (stopwatch.Elapsed < TimeSpan.FromSeconds(barOpenBouncer))
+        //        {
+        //            Thread.Sleep(random.Next(3000 / bouncerSpeed, 10000 / bouncerSpeed));
+        //            string patronName = PatronNameList[random.Next(PatronNameList.Count)];
+        //            patronCallback(new Patron(patronName));
+        //            Callback($"{patronName} has entered the bar.");
+        //        }
+        //        stopwatch.Stop();
+        //        IsClosing();
+        //        Callback("The bouncer goes home.");
+        //    });
+
+        //}
+
+        //Bussload work method
         public void Work(Action<string> Callback, Action<Patron> patronCallback, int barOpenBouncer)
         {
             IsWorking = true;
             Task.Run(() => {
                 this.PatronCallback = patronCallback;
                 this.Callback = Callback;
-
                 stopwatch.Start();
                 while (stopwatch.Elapsed < TimeSpan.FromSeconds(barOpenBouncer))
                 {
-                    Thread.Sleep(random.Next(3000 / bouncerSpeed, 10000 / bouncerSpeed));
+                    if (stopwatch.Elapsed > TimeSpan.FromSeconds(20) && bouncerTest)
+                    {
+                        AddManyPatrons();
+                        bouncerTest = false;
+                    }
+                    Thread.Sleep(random.Next(6000, 20000));
                     string patronName = PatronNameList[random.Next(PatronNameList.Count)];
-                    patronCallback(new Patron(patronName));
+                    PatronCallback(new Patron(patronName));
                     Callback($"{patronName} has entered the bar.");
                 }
                 stopwatch.Stop();
@@ -48,6 +76,18 @@ namespace Lab6
                 Callback("The bouncer goes home.");
             });
         }
+        public void AddManyPatrons()
+        {
+            int manyPatrons = 0;
+            while (manyPatrons <= 15)
+            {
+                string patronName = PatronNameList[random.Next(PatronNameList.Count)];
+                PatronCallback(new Patron(patronName));
+                Callback($"{patronName} has entered the bar.");
+                manyPatrons++;
+            }
+        }
+
 
         public void ChangeSpeed(int speed)
         {

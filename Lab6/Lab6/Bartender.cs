@@ -52,13 +52,13 @@ namespace Lab6
                         else
                         {
                             Callback("The Bartender is waiting for Glasses.");
-                            Thread.Sleep(3000 / bartenderSpeed);
+                            Thread.Sleep(5000);
                         }
                     }
                     else
                     {
                         Callback("The Bartender is waiting for Patrons.");
-                        Thread.Sleep(3000 / bartenderSpeed);
+                        Thread.Sleep(5000);
                     }
                 }
                 Callback("The Bartender goes home.");

@@ -35,13 +35,16 @@ namespace Lab6
                     {
                         if (!DirtyGlassStack.IsEmpty)
                         {
-                            Callback("The waiter picks up a dirty glass from a table.");
-                            DirtyGlassStack.TryPop(out Glass g);
+                            Callback("The waiter picks up dirty glasses from a table.");
                             Thread.Sleep(waiterWashingSec / waiterSpeed);
-                            Callback("The waiter is washing a glass.");
+                            Callback("The waiter is washing glasses.");
                             Thread.Sleep(waiterPickingGlassesSec / waiterSpeed);
-                            Callback("The waiter places the clean glass back on the shelf.");
-                            CleanGlassStack.Push(new Glass());
+                            Callback("The waiter places the clean glasses back on the shelf.");
+                            for (int i = 0; i < DirtyGlassStack.Count(); i++)
+                            {
+                                DirtyGlassStack.TryPop(out Glass g);
+                                CleanGlassStack.Push(new Glass());
+                            }
                         }
                     }
                 }
