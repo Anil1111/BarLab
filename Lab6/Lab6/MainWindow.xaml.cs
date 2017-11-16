@@ -49,13 +49,14 @@ namespace Lab6
         private int waiterWashingSec = 15000;
         private int waiterPickingGlassesSec = 10000;
         private int speed = 1;
-        
+
+        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+
         public MainWindow()
         {
             InitializeComponent();
             bouncer.IsClosing += bartender.StopServing;
             bouncer.IsClosing += waiter.StopServing;
-
         }
 
         private void BtnStart_Click(object sender, RoutedEventArgs e)
@@ -66,7 +67,6 @@ namespace Lab6
             CreateChairStack();
 
             // Timer to be shown in the UI
-            System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();

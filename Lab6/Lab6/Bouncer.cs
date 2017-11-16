@@ -36,7 +36,7 @@ namespace Lab6
                 this.Callback = Callback;
 
                 stopwatch.Start();
-                while (stopwatch.Elapsed < TimeSpan.FromSeconds(barOpenBouncer / bouncerSpeed))
+                while (stopwatch.Elapsed < TimeSpan.FromSeconds(barOpenBouncer))
                 {
                     Thread.Sleep(random.Next(3000 / bouncerSpeed, 10000 / bouncerSpeed));
                     string patronName = PatronNameList[random.Next(PatronNameList.Count)];
