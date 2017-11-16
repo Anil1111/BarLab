@@ -161,14 +161,10 @@ namespace Lab6
             bartender.ChangeSpeed(speed);
             lblSpeed.Content = $"Speed set to x{speed}";
             btnSlowDown1.IsEnabled = true;
-            //if(speed == 8)
-            //{
-            //    btnSpeed.IsEnabled = false;
-            //}
-            //else
-            //{
-            //    btnSpeed.IsEnabled = true;
-            //}
+            if (speed == 16)
+            {
+                btnSpeed.IsEnabled = false;
+            }
         }
 
         private void btnSlowDown1_Click(object sender, RoutedEventArgs e)
@@ -182,6 +178,10 @@ namespace Lab6
             if(speed == 1)
             {
                 btnSlowDown1.IsEnabled = false;
+            }
+            if(btnSpeed.IsEnabled == false)
+            {
+                btnSpeed.IsEnabled = true;
             }
         }
     }
