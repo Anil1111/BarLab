@@ -32,7 +32,7 @@ namespace Lab6
 
         //Function that tells the Patron to "sit down" and drink the beer before disappearing from the queue
         public void SitDown(Action<string> callback, ConcurrentStack<Glass> dirtyGlassStack, ConcurrentStack<Chair> freeChairStack,
-            ConcurrentQueue<Patron> patronQueue, ConcurrentQueue<string> uiPatronCountDeQueue)
+            ConcurrentQueue<Patron> patronQueue, ConcurrentQueue<string> uiPatronCountDeQueue, int speed)
         {
             this.Callback = callback;
             this.DirtyGlassStack = dirtyGlassStack;
@@ -49,12 +49,12 @@ namespace Lab6
                 while (FreeChairStack.IsEmpty)
                 {
                     Callback($"{BeerDrinkingPatron} is looking for a place to sit.");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(1000 / speed);
                 }
                 FreeChairStack.TryPop(out Chair c);
-                Thread.Sleep(4000);
+                Thread.Sleep(4000/ speed);
                 Callback($"{BeerDrinkingPatron} sits down.");
-                Thread.Sleep(random.Next(patronDrinkingIntervalMin, patronDrinkingIntervalMax));
+                Thread.Sleep(random.Next(patronDrinkingIntervalMin / speed, patronDrinkingIntervalMax / speed));
                 uiPatronCountDeQueue.TryDequeue(out string s);
                 FreeChairStack.Push(new Chair());
                 DirtyGlassStack.Push(new Glass());

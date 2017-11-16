@@ -15,6 +15,7 @@ namespace Lab6
         private Action<Patron> PatronCallback;
         Random random = new Random();
         Stopwatch stopwatch = new Stopwatch();
+        private int bouncerSpeed = 1;
 
         public bool IsWorking { get; set; }
 
@@ -35,9 +36,9 @@ namespace Lab6
                 this.Callback = Callback;
 
                 stopwatch.Start();
-                while (stopwatch.Elapsed < TimeSpan.FromSeconds(barOpenBouncer))
+                while (stopwatch.Elapsed < TimeSpan.FromSeconds(barOpenBouncer / bouncerSpeed))
                 {
-                    Thread.Sleep(random.Next(3000, 10000));
+                    Thread.Sleep(random.Next(3000 / bouncerSpeed, 10000 / bouncerSpeed));
                     string patronName = PatronNameList[random.Next(PatronNameList.Count)];
                     patronCallback(new Patron(patronName));
                     Callback($"{patronName} has entered the bar.");
@@ -46,6 +47,11 @@ namespace Lab6
                 IsClosing();
                 Callback("The bouncer goes home.");
             });
+        }
+
+        public void ChangeSpeed(int speed)
+        {
+            this.bouncerSpeed = speed;
         }
     }
 }

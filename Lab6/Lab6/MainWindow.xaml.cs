@@ -48,6 +48,7 @@ namespace Lab6
         private int chairs = 9;
         private int waiterWashingSec = 15000;
         private int waiterPickingGlassesSec = 10000;
+        private int speed = 1;
         
         public MainWindow()
         {
@@ -60,6 +61,7 @@ namespace Lab6
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             BtnStart.IsEnabled = false;
+            btnSpeed.IsEnabled = true;
             CreateGlassStack();
             CreateChairStack();
 
@@ -147,6 +149,39 @@ namespace Lab6
             {
                 freeChairStack.Push(new Chair());
                 Console.WriteLine("Added chair object to stack");
+            }
+        }
+
+
+        private void btnSpeed_Click(object sender, RoutedEventArgs e)
+        {
+            speed = speed * 2;
+            waiter.ChangeSpeed(speed);
+            bouncer.ChangeSpeed(speed);
+            bartender.ChangeSpeed(speed);
+            lblSpeed.Content = $"Speed set to x{speed}";
+            btnSlowDown1.IsEnabled = true;
+            //if(speed == 8)
+            //{
+            //    btnSpeed.IsEnabled = false;
+            //}
+            //else
+            //{
+            //    btnSpeed.IsEnabled = true;
+            //}
+        }
+
+        private void btnSlowDown1_Click(object sender, RoutedEventArgs e)
+        {
+            speed = speed / 2;
+            waiter.ChangeSpeed(speed);
+            bouncer.ChangeSpeed(speed);
+            bartender.ChangeSpeed(speed);
+            lblSpeed.Content = $"Speed set to x{speed}";
+
+            if(speed == 1)
+            {
+                btnSlowDown1.IsEnabled = false;
             }
         }
     }

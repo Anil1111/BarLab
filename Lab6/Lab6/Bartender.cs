@@ -17,6 +17,7 @@ namespace Lab6
         private ConcurrentStack<Glass> CleanGlassStack;
         private ConcurrentStack<Chair> FreeChairStack;
         public bool BarIsOpen { get; set; }
+        private int bartenderSpeed = 1;
 
         public void Work(ConcurrentQueue<Patron> patronQueue, ConcurrentQueue<Patron> bartenderQueue, Action<string> callback, Action<string> PatronListCallback,
             ConcurrentStack<Glass> cleanGlassStack, ConcurrentStack<Glass> dirtyGlassStack, 
@@ -40,24 +41,24 @@ namespace Lab6
                         if (!cleanGlassStack.IsEmpty)
                         {
                             cleanGlassStack.TryPop(out Glass g);
-                            Thread.Sleep(1000);
+                            Thread.Sleep(1000 / bartenderSpeed);
                             Callback($"The Bartender is fetching {BartenderQueue.First().Name} a glass.");
-                            Thread.Sleep(3000);
+                            Thread.Sleep(3000 / bartenderSpeed);
                             Callback($"The Bartender is pouring {BartenderQueue.First().Name} a beer.");
-                            Thread.Sleep(3000);
-                            PatronQueue.FirstOrDefault().SitDown(PatronListCallback, DirtyGlassStack, FreeChairStack, PatronQueue, uiPatronCountDequeue);
+                            Thread.Sleep(3000 / bartenderSpeed);
+                            PatronQueue.FirstOrDefault().SitDown(PatronListCallback, DirtyGlassStack, FreeChairStack, PatronQueue, uiPatronCountDequeue, bartenderSpeed);
                             BartenderQueue.TryDequeue(out Patron p);
                         }
                         else
                         {
                             Callback("The Bartender is waiting for Glasses.");
-                            Thread.Sleep(3000);
+                            Thread.Sleep(3000 / bartenderSpeed);
                         }
                     }
                     else
                     {
                         Callback("The Bartender is waiting for Patrons.");
-                        Thread.Sleep(3000);
+                        Thread.Sleep(3000 / bartenderSpeed);
                     }
                 }
                 Callback("The Bartender goes home.");
@@ -67,6 +68,11 @@ namespace Lab6
         public void StopServing()
         {
             BarIsOpen = false;
+        }
+
+        public void ChangeSpeed(int speed)
+        {
+            this.bartenderSpeed = speed;
         }
     }
 }
